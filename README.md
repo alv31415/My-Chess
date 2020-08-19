@@ -109,3 +109,64 @@ I believe I have merely constructed the beginning of the project. To further imp
 * add an opening move handbook
 * create an AI of varying difficulty (player vs computer)
 * create an ML algorithm
+
+## 7 - Pictures
+
+### Terminal Interface
+
+<p align="center">
+  <img src="https://github.com/alv31415/My-Chess/blob/master/Game%20Pictures/Screenshot%202020-08-19%20at%2018.53.43.png"/>
+</p>
+
+### UI
+
+The initial set up:
+
+<p align = "center">
+  <img src = "https://github.com/alv31415/My-Chess/blob/master/Game%20Pictures/Screenshot%202020-08-19%20at%2018.48.47.png">
+ </p>
+ 
+ Clicking on the Knight revels it has 2 potential moves (f3 & h3):
+ 
+ <p align = "center">
+   <img src = "https://github.com/alv31415/My-Chess/blob/master/Game%20Pictures/Screenshot%202020-08-19%20at%2018.49.04.png">
+ </p>
+ 
+ The Knight has moved, as shown in the game log to the right; the black pawn has 2 potential moves (d6 & d5):
+ 
+ <p align = "center">
+   <img src = "https://github.com/alv31415/My-Chess/blob/master/Game%20Pictures/Screenshot%202020-08-19%20at%2018.49.22.png">
+ </p>
+ 
+ We can choose to save the game under any name we choose (as long as it doesn't already exist!):
+ 
+ <p align = "center">
+   <img src = "https://github.com/alv31415/My-Chess/blob/master/Game%20Pictures/Screenshot%202020-08-19%20at%2018.49.44.png">
+ </p>
+ 
+ The black Pawn can now be promoted:
+ 
+ <p align = "center">
+   <img src = "https://github.com/alv31415/My-Chess/blob/master/Game%20Pictures/Screenshot%202020-08-19%20at%2018.50.31.png">
+ </p>
+ 
+ The whhite King is in check, so its movements are limited:
+ 
+ <p align = "center">
+   <img src = "https://github.com/alv31415/My-Chess/blob/master/Game%20Pictures/Screenshot%202020-08-19%20at%2018.50.53.png">
+ </p>
+ 
+ If we want to save the King, the white Bishop only has 1 square available:
+ 
+ <p align = "center">
+   <img src = "https://github.com/alv31415/My-Chess/blob/master/Game%20Pictures/Screenshot%202020-08-19%20at%2018.51.14.png">
+ </p>
+
+
+A situation of checkmate: 
+
+ <p align = "center">
+  <img src = "https://github.com/alv31415/My-Chess/blob/master/Game%20Pictures/Screenshot%202020-08-19%20at%2018.52.00.png">
+ </p>
+
+ 
