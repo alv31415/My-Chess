@@ -4,7 +4,7 @@ This is my implementation of Chess in Java. During the SARS-COV-2 pandemic, I be
 
 ## Description
 
-Initially, I thought I could only develop a terminal based game, as that was all that I maanged when I had made games before. However, feeling usnatisfied, I learnt Swing to develop a UI that definetely improved the game experience. Both implementations have the same underlying processes. To ensure the correct functioning of the whole project, I created JUNIT tests for most classes.
+Initially, I thought I could only develop a terminal based game, as that was all that I maanged when I had made games before. However, feeling usnatisfied, I learnt Swing to develop a UI that definetely improved the game experience. Both implementations have the same underlying processes. To ensure the correct functioning of the whole project, I created JUNIT tests for most classes
  
  ## 1 - Basic Logic
  
