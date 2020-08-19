@@ -32,11 +32,11 @@ Initially, I thought I could only develop a terminal based game, as that was all
  
  The logic for the terminal based game and the UI is essentially the same:
  
- 1. Instantiate a pieces. This is the board of the game, and contains all of the pieces.
- 2. Select a piece and select a coordinate. If the destination coordinate is a valid coordinate for your given piece, and its i the piece's colour turn to move, then make a move.
-         * this is represented by changing pieces.
-         * the piece's key changes from its origin to its destination coordinate
-         * if a piece from the opposite colour was occupying the coordiante, that piece is eliminated
+ 1. Instantiate a _pieces_ class. This is the board of the game, and contains all of the pieces.
+ 2. Select a piece and select a coordinate. If the destination coordinate is a valid coordinate for your given piece, and its the piece's colour turn to move, then make a move.
+* this is represented by changing _pieces_.
+* the piece's key changes from its origin to its destination coordinate
+* if a piece from the opposite colour was occupying the coordiante, that piece is eliminated
  3. Check if its check mate. If so, the game ends. Otherwise, it is the turn of the other colour.
  
  ## 2 - Enums
@@ -54,7 +54,7 @@ Initially, I thought I could only develop a terminal based game, as that was all
  * KNIGHT
  * PAWN
  
- This enum contained 2 _toString()_ methods. One (_toString()_) is used to print the piece's letter for describing moves. For example, if a bishop moves to _e6_, such move would be described as _Be6_. The other one (_toFullString()_) is mainly used for testing and "human" printing purposes. It returns the full name of the String. For example, ``` ID.KING.toFullString()``` would return ```"King"```.
+ This enum contained 2 `toString()` methods. One (`toString()`) is used to print the piece's letter for describing moves. For example, if a bishop moves to _e6_, such move would be described as _Be6_. The other one (`toFullString()`) is mainly used for testing and "human" printing purposes. It returns the full name of the String. For example, ` ID.KING.toFullString()` would return `"King"`.
  
  ### COLOUR
  
@@ -63,7 +63,7 @@ Initially, I thought I could only develop a terminal based game, as that was all
  * B (a black piece)
  * W (a white piece)
  
- This enum also contains 2 _toString()_ methods, albeit these are barely used (mainly only for tests). The most important method is the _not(COLOUR)_ method. It is used to return the opposite colour to the argument it takes. Hence, ```COLOUR.not(COLOUR.B) ``` would return ```COLOUR.W```. This is extremely useful, for example when handling the turn of play, or calculating when a move leads to check.
+ This enum also contains 2 `toString()` methods, albeit these are barely used (mainly only for tests). The most important method is the `not(COLOUR)` method. It is used to return the opposite colour to the argument it takes. Hence, `COLOUR.not(COLOUR.B) ` would return `COLOUR.W`. This is extremely useful, for example when handling the turn of play, or calculating when a move leads to check.
  
  ### BOARD
  
@@ -78,7 +78,7 @@ Initially, I thought I could only develop a terminal based game, as that was all
  
  ## 3 - Key Classes
  
- There are 4 key classes that sustain this project: __Coordinate__, __Piece__, __Pieces__ and __Move__. The first 3 are used to create objects to represent the chess board and its pieces. They all contain getters, setters, alongside functionality to create deep copies of its instances. This is paramount, as will be explained later. The methods ```toString()```, ```equals(Object o)``` and ```hashCode()``` have all been overridden.  The last class, __Move__ simply contains methods that are essential for the correct functioining of the project.
+ There are 4 key classes that sustain this project: __Coordinate__, __Piece__, __Pieces__ and __Move__. The first 3 are used to create objects to represent the chess board and its pieces. They all contain getters, setters, alongside functionality to create deep copies of its instances. This is paramount, as will be explained later. The methods `toString()`, `equals(Object o)` and `hashCode()` have all been overridden.  The last class, __Move__ simply contains methods that are essential for the correct functioining of the project.
          
 ### Coordinate
 
@@ -86,9 +86,9 @@ Uses a char (file) and an int (rank) to determine a square within a board, accor
 
 ### Piece
 
-A class identifying the pieces of the game.  A piece is initialised with an ID (type of piece), a COLOUR (black or white) and its initial Coordinate within the board. It acts as a super class to the more specific pieces: King, Queen, Rook, Bishop, Knight, and Pawn. The most important method in __Piece__ have to do with the creation, updating and validation of the moves that a piece can move. We define _raw moves_ as those moves that a piece can make _independently_ of whether the King is in check of not. _Potential moves_ are the actual moves that a piece can make, taking checks into accounts.  __Piece__ contains abstract methods that are then individually defined within the children classes. For example, ```getRawMoves(Pieces pieces)``` is used to obtain the raw moves that are available to an individual piece. Since each piece moves differently, the details of ```getRawMoves(Pieces pieces)``` are defined individually. 
+A class identifying the pieces of the game.  A piece is initialised with an ID (type of piece), a COLOUR (black or white) and its initial Coordinate within the board. It acts as a super class to the more specific pieces: King, Queen, Rook, Bishop, Knight, and Pawn. The most important method in __Piece__ have to do with the creation, updating and validation of the moves that a piece can move. We define _raw moves_ as those moves that a piece can make _independently_ of whether the King is in check of not. _Potential moves_ are the actual moves that a piece can make, taking checks into accounts.  __Piece__ contains abstract methods that are then individually defined within the children classes. For example, `getRawMoves(Pieces pieces)` is used to obtain the raw moves that are available to an individual piece. Since each piece moves differently, the details of `getRawMoves(Pieces pieces)` are defined individually. 
 
-Perhaps the most important of all its methods is ```removeOwnCheck(Pieces pieces)```. This method is used to take in the raw moves available to a piece, and then filter out all of the moves that are impossible; namely those that would either:
+Perhaps the most important of all its methods is `removeOwnCheck(Pieces pieces)`. This method is used to take in the raw moves available to a piece, and then filter out all of the moves that are impossible; namely those that would either:
 
 * lead to check
 * not stop a check (i.e if a piece moves away from the King, leading to a check by the opposition)
