@@ -5,7 +5,7 @@ This is my implementation of Chess in Java. During the SARS-COV-2 pandemic, I be
 ## Table of Contents
 
 * [Description](#description)
-* [1 - Basic Logic](#1---basic-logic)
+* [1 - Basic Logic](#1---basic-logic-&#9823;)
 * [2 - Enums](#2---enums)
     + [ID](#id)
     + [COLOUR](#colour)
@@ -28,7 +28,8 @@ This is my implementation of Chess in Java. During the SARS-COV-2 pandemic, I be
 
 Initially, I thought I could only develop a terminal based game, as that was all that I maanged when I had made games before. However, feeling usnatisfied, I learnt Swing to develop a UI that definetely improved the game experience. Both implementations have the same underlying processes. To ensure the correct functioning of the whole project, I created JUNIT tests for most classes
  
- ## 1 - Basic Logic
+ ## 1 - Basic Logic &#9823; 
+
  
  The logic for the terminal based game and the UI is essentially the same:
  
@@ -124,13 +125,13 @@ The FileIO class is used to handle game saving. In order to save a game, we crea
 
 I believe I have merely constructed the beginning of the project. To further improve it, I would like to (in order to feasability and ease):
 
-* add functionality to parse pgn/txt files and load their games
-* add functionality so that a user can drag a piece to move it (currently need 2 clicks)
-* add a player vs player functionality (switching the position of the board to face the player)
-* add a timer
-* add an opening move handbook
-* create an AI of varying difficulty (player vs computer)
-* create an ML algorithm
+- [ ] add functionality to parse pgn/txt files and load their games
+- [ ] add functionality so that a user can drag a piece to move it (currently need 2 clicks)
+- [ ] add a player vs player functionality (switching the position of the board to face the player)
+- [ ] add a timer
+- [ ] add an opening move handbook
+- [ ] create an AI of varying difficulty (player vs computer)
+- [ ] create an ML algorithm
 
 ## 7 - Pictures
 
