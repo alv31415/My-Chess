@@ -5,21 +5,21 @@ This is my implementation of Chess in Java. During the SARS-COV-2 pandemic, I be
 ## Table of Contents
 
 * [Description](#description)
-* [1 - Basic Logic](#1---basic-logic-&#9823;)
-* [2 - Enums](#2---enums)
+* [1 - Basic Logic](#1---basic-logic-)
+* [2 - Enums](#2---enums-)
     + [ID](#id)
     + [COLOUR](#colour)
     + [BOARD](#board)
-* [3 - Key Classes](#3---key-classes)
+* [3 - Key Classes](#3---key-classes-)
     + [Coordinate](#coordinate)
     + [Piece](#piece)
     + [Pieces](#pieces)
     + [Move](#move)
-* [4 - The UI](#4---the-ui)
+* [4 - The UI](#4---the-ui-)
     + [Printing the Interface](#printing-the-interface)
     + [Handling movements](#handling-movements)
-* [5 - Saving a Game](#5---saving-a-game)
-* [6 - To Do List](#6---to-do-list)
+* [5 - Saving a Game](#5---saving-a-game-)
+* [6 - To Do List](#6---to-do-list-)
 * [7 - Pictures](#7---pictures)
     + [Terminal Interface](#terminal-interface)
     + [UI](#ui)
@@ -40,7 +40,7 @@ Initially, I thought I could only develop a terminal based game, as that was all
 * if a piece from the opposite colour was occupying the coordiante, that piece is eliminated
  3. Check if its check mate. If so, the game ends. Otherwise, it is the turn of the other colour.
  
- ## 2 - Enums
+ ## 2 - Enums &#9822;
  
  Enums were an integral part of this project, as I used them to represent important constants for the game. The enums I created were __ID__, __COLOUR__ and __BOARD__.
  
@@ -77,7 +77,7 @@ Initially, I thought I could only develop a terminal based game, as that was all
  
  A file is used to represent a column, and is represented by a character from _a_ to _h_. A rank represents a row, and is represented by an integer from _1_ to _8_. __BOARD__ contains methods to access the values associated with these constants.
  
- ## 3 - Key Classes
+ ## 3 - Key Classes &#9821;
  
  There are 4 key classes that sustain this project: __Coordinate__, __Piece__, __Pieces__ and __Move__. The first 3 are used to create objects to represent the chess board and its pieces. They all contain getters, setters, alongside functionality to create deep copies of its instances. This is paramount, as will be explained later. The methods `toString()`, `equals(Object o)` and `hashCode()` have all been overridden.  The last class, __Move__ simply contains methods that are essential for the correct functioining of the project.
          
@@ -105,7 +105,7 @@ Contains a HashMap with Coordinate-Piece key-value pairs. It contains all the me
 
 This class contains all the classes pertinent to the movement of the pieces. It contains functionality to, given a board (__Pieces__) and a piece determine which range of movement it has. We can determine available moves in vertical, diagonal and horizontal direction, alongside the moves available to a Knight. It is these methods that are used within a __Piece__ to determine the raw moves available to them. It must be noted that there are pieces, such as the King or the Pawn that have a special range of moves available to them. The handling of these moves is made directly within their classes.
 
-## 4 - The UI
+## 4 - The UI &#9820;
 
 To create the UI, I used the Swing package.
 
@@ -117,11 +117,11 @@ The interface is mainly made through the superposition of JPanels. To create the
 
 To make a move, the user needs to select a piece, and then select a destination square. I created a flag that would allow me to check whether the user has clicked twice, as this would represent a move. When the user clicks a square (JButton), I looped through the array of JButtons until I found the JButton that had been clicked. I then turned this information into a Coordinate, which then allowed me to find the Piece occupying the square. This then made it so the squares corresponding to the potential moves of the piece got illuminated. It also set the flag to true. Once there was a second click the program checked to see if the selected square corresponded to one of the potential moves of the piece. If so, the move was executed and the board was updated, resetting the flag. Otherwise, the potential moves of the selected piece would be shown.
 
-## 5 - Saving a Game
+## 5 - Saving a Game &#9819;
 
 The FileIO class is used to handle game saving. In order to save a game, we create a txt file containing the moves, as per pgn (portable game notation) format (albeit without additional information, such as the date, location, players involved, etc ...). FileIO contains a method that handles the creation of Strings representing sets of moves. The user can then introduce the name of the file to be saved.
 
-## 6 - To Do List
+## 6 - To Do List &#9818;
 
 I believe I have merely constructed the beginning of the project. To further improve it, I would like to (in order to feasability and ease):
 
