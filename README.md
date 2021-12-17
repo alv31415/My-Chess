@@ -173,7 +173,7 @@ The initial set up:
    <img src = "https://github.com/alv31415/My-Chess/blob/master/Game%20Pictures/Screenshot%202020-08-19%20at%2018.50.31.png">
  </p>
  
- The whhite King is in check, so its movements are limited:
+ The white King is in check, so its movements are limited:
  
  <p align = "center">
    <img src = "https://github.com/alv31415/My-Chess/blob/master/Game%20Pictures/Screenshot%202020-08-19%20at%2018.50.53.png">
