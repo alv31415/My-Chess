@@ -7,14 +7,14 @@ This is my implementation of Chess in Java. During the SARS-COV-2 pandemic, I be
 * [Description](#description)
 * [1 - Basic Logic](#1---basic-logic-)
 * [2 - Enums](#2---enums-)
-    + [ID](#id)
-    + [COLOUR](#colour)
-    + [BOARD](#board)
+    + [chess23.ID](#id)
+    + [chess23.COLOUR](#colour)
+    + [chess23.BOARD](#board)
 * [3 - Key Classes](#3---key-classes-)
-    + [Coordinate](#coordinate)
-    + [Piece](#piece)
-    + [Pieces](#pieces)
-    + [Move](#move)
+    + [chess23.Coordinate](#coordinate)
+    + [chess23.Piece](#piece)
+    + [chess23.Pieces](#pieces)
+    + [chess23.Move](#move)
 * [4 - The UI](#4---the-ui-)
     + [Printing the Interface](#printing-the-interface)
     + [Handling movements](#handling-movements)
@@ -44,7 +44,7 @@ Initially, I thought I could only develop a terminal based game, as that was all
  
  Enums were an integral part of this project, as I used them to represent important constants for the game. The enums I created were __ID__, __COLOUR__ and __BOARD__.
  
- ### ID
+ ### chess23.ID
  
  Used as an identifier for a piece. The types of pieces are:
  
@@ -55,18 +55,18 @@ Initially, I thought I could only develop a terminal based game, as that was all
  * KNIGHT
  * PAWN
  
- This enum contained 2 `toString()` methods. One (`toString()`) is used to print the piece's letter for describing moves. For example, if a bishop moves to _e6_, such move would be described as _Be6_. The other one (`toFullString()`) is mainly used for testing and "human" printing purposes. It returns the full name of the String. For example, ` ID.KING.toFullString()` would return `"King"`.
+ This enum contained 2 `toString()` methods. One (`toString()`) is used to print the piece's letter for describing moves. For example, if a bishop moves to _e6_, such move would be described as _Be6_. The other one (`toFullString()`) is mainly used for testing and "human" printing purposes. It returns the full name of the String. For example, ` chess23.ID.KING.toFullString()` would return `"chess23.King"`.
  
- ### COLOUR
+ ### chess23.COLOUR
  
  Used as a colour identifier for a piece. These are:
  
  * B (a black piece)
  * W (a white piece)
  
- This enum also contains 2 `toString()` methods, albeit these are barely used (mainly only for tests). The most important method is the `not(COLOUR)` method. It is used to return the opposite colour to the argument it takes. Hence, `COLOUR.not(COLOUR.B) ` would return `COLOUR.W`. This is extremely useful, for example when handling the turn of play, or calculating when a move leads to check.
+ This enum also contains 2 `toString()` methods, albeit these are barely used (mainly only for tests). The most important method is the `not(chess23.COLOUR)` method. It is used to return the opposite colour to the argument it takes. Hence, `chess23.COLOUR.not(chess23.COLOUR.B) ` would return `chess23.COLOUR.W`. This is extremely useful, for example when handling the turn of play, or calculating when a move leads to check.
  
- ### BOARD
+ ### chess23.BOARD
  
  Used to contain the dimensions of the board. These are determined by 4 constants:
  
@@ -81,29 +81,29 @@ Initially, I thought I could only develop a terminal based game, as that was all
  
  There are 4 key classes that sustain this project: __Coordinate__, __Piece__, __Pieces__ and __Move__. The first 3 are used to create objects to represent the chess board and its pieces. They all contain getters, setters, alongside functionality to create deep copies of its instances. This is paramount, as will be explained later. The methods `toString()`, `equals(Object o)` and `hashCode()` have all been overridden.  The last class, __Move__ simply contains methods that are essential for the correct functioining of the project.
          
-### Coordinate
+### chess23.Coordinate
 
 Uses a char (file) and an int (rank) to determine a square within a board, according to Chess nomenclature. Includes functionality to ensure that the arguments provided represent a valid coordinate within the board.
 
-### Piece
+### chess23.Piece
 
-A class identifying the pieces of the game.  A piece is initialised with an ID (type of piece), a COLOUR (black or white) and its initial Coordinate within the board. It acts as a super class to the more specific pieces: King, Queen, Rook, Bishop, Knight, and Pawn. The most important method in __Piece__ have to do with the creation, updating and validation of the moves that a piece can move. We define _raw moves_ as those moves that a piece can make _independently_ of whether the King is in check of not. _Potential moves_ are the actual moves that a piece can make, taking checks into accounts.  __Piece__ contains abstract methods that are then individually defined within the children classes. For example, `getRawMoves(Pieces pieces)` is used to obtain the raw moves that are available to an individual piece. Since each piece moves differently, the details of `getRawMoves(Pieces pieces)` are defined individually. 
+A class identifying the pieces of the game.  A piece is initialised with an chess23.ID (type of piece), a chess23.COLOUR (black or white) and its initial chess23.Coordinate within the board. It acts as a super class to the more specific pieces: chess23.King, chess23.Queen, chess23.Rook, chess23.Bishop, chess23.Knight, and chess23.Pawn. The most important method in __Piece__ have to do with the creation, updating and validation of the moves that a piece can move. We define _raw moves_ as those moves that a piece can make _independently_ of whether the chess23.King is in check of not. _Potential moves_ are the actual moves that a piece can make, taking checks into accounts.  __Piece__ contains abstract methods that are then individually defined within the children classes. For example, `getRawMoves(chess23.Pieces pieces)` is used to obtain the raw moves that are available to an individual piece. Since each piece moves differently, the details of `getRawMoves(chess23.Pieces pieces)` are defined individually. 
 
-Perhaps the most important of all its methods is `removeOwnCheck(Pieces pieces)`. This method is used to take in the raw moves available to a piece, and then filter out all of the moves that are impossible; namely those that would either:
+Perhaps the most important of all its methods is `removeOwnCheck(chess23.Pieces pieces)`. This method is used to take in the raw moves available to a piece, and then filter out all of the moves that are impossible; namely those that would either:
 
 * lead to check
-* not stop a check (i.e if a piece moves away from the King, leading to a check by the opposition)
+* not stop a check (i.e if a piece moves away from the chess23.King, leading to a check by the opposition)
 
 In order to do this, we must create a deep copy of the board. From the raw moves of the piece, we make the piece execute the move within the copied board. We then check if that has lead to situation of check by the opposition. If it has, said move is deleted. Otherwise, it is maintained. This is a crucial process, as it allows the pieces to determine all of their moves, so checking whether the move provided by the user is legal becomes trivial. Moreover, for the UI, it allows us to display all the moves avaialbale to the given piece.
         
 
-### Pieces
+### chess23.Pieces
 
-Contains a HashMap with Coordinate-Piece key-value pairs. It contains all the methods used to handling the positioning of the pieces throughout the game. For example, we can use it to find the King of a certain colour, determine which pieces lie on the same file or whether it is the end of the game (via check mate or a draw/stalemate). __Pieces__ also contains the method that executes the moves provided by the user. It is a particularly long method, which must check for all moves that constitute special cases, such as a King castling or a pawn queening/capturing in diagonal/en passant.
+Contains a HashMap with chess23.Coordinate-chess23.Piece key-value pairs. It contains all the methods used to handling the positioning of the pieces throughout the game. For example, we can use it to find the chess23.King of a certain colour, determine which pieces lie on the same file or whether it is the end of the game (via check mate or a draw/stalemate). __Pieces__ also contains the method that executes the moves provided by the user. It is a particularly long method, which must check for all moves that constitute special cases, such as a chess23.King castling or a pawn queening/capturing in diagonal/en passant.
 
-### Move
+### chess23.Move
 
-This class contains all the classes pertinent to the movement of the pieces. It contains functionality to, given a board (__Pieces__) and a piece determine which range of movement it has. We can determine available moves in vertical, diagonal and horizontal direction, alongside the moves available to a Knight. It is these methods that are used within a __Piece__ to determine the raw moves available to them. It must be noted that there are pieces, such as the King or the Pawn that have a special range of moves available to them. The handling of these moves is made directly within their classes.
+This class contains all the classes pertinent to the movement of the pieces. It contains functionality to, given a board (__Pieces__) and a piece determine which range of movement it has. We can determine available moves in vertical, diagonal and horizontal direction, alongside the moves available to a chess23.Knight. It is these methods that are used within a __Piece__ to determine the raw moves available to them. It must be noted that there are pieces, such as the chess23.King or the chess23.Pawn that have a special range of moves available to them. The handling of these moves is made directly within their classes.
 
 ## 4 - The UI &#9820;
 
@@ -115,7 +115,7 @@ The interface is mainly made through the superposition of JPanels. To create the
 
 ### Handling movements
 
-To make a move, the user needs to select a piece, and then select a destination square. I created a flag that would allow me to check whether the user has clicked twice, as this would represent a move. When the user clicks a square (JButton), I looped through the array of JButtons until I found the JButton that had been clicked. I then turned this information into a Coordinate, which then allowed me to find the Piece occupying the square. This then made it so the squares corresponding to the potential moves of the piece got illuminated. It also set the flag to true. Once there was a second click the program checked to see if the selected square corresponded to one of the potential moves of the piece. If so, the move was executed and the board was updated, resetting the flag. Otherwise, the potential moves of the selected piece would be shown.
+To make a move, the user needs to select a piece, and then select a destination square. I created a flag that would allow me to check whether the user has clicked twice, as this would represent a move. When the user clicks a square (JButton), I looped through the array of JButtons until I found the JButton that had been clicked. I then turned this information into a chess23.Coordinate, which then allowed me to find the chess23.Piece occupying the square. This then made it so the squares corresponding to the potential moves of the piece got illuminated. It also set the flag to true. Once there was a second click the program checked to see if the selected square corresponded to one of the potential moves of the piece. If so, the move was executed and the board was updated, resetting the flag. Otherwise, the potential moves of the selected piece would be shown.
 
 ## 5 - Saving a Game &#9819;
 
@@ -149,13 +149,13 @@ The initial set up:
   <img src = "https://github.com/alv31415/My-Chess/blob/master/Game%20Pictures/Screenshot%202020-08-19%20at%2018.48.47.png">
  </p>
  
- Clicking on the Knight revels it has 2 potential moves (f3 & h3):
+ Clicking on the chess23.Knight revels it has 2 potential moves (f3 & h3):
  
  <p align = "center">
    <img src = "https://github.com/alv31415/My-Chess/blob/master/Game%20Pictures/Screenshot%202020-08-19%20at%2018.49.04.png">
  </p>
  
- The Knight has moved, as shown in the game log to the right; the black pawn has 2 potential moves (d6 & d5):
+ The chess23.Knight has moved, as shown in the game log to the right; the black pawn has 2 potential moves (d6 & d5):
  
  <p align = "center">
    <img src = "https://github.com/alv31415/My-Chess/blob/master/Game%20Pictures/Screenshot%202020-08-19%20at%2018.49.22.png">
@@ -167,19 +167,19 @@ The initial set up:
    <img src = "https://github.com/alv31415/My-Chess/blob/master/Game%20Pictures/Screenshot%202020-08-19%20at%2018.49.44.png">
  </p>
  
- The black Pawn can now be promoted:
+ The black chess23.Pawn can now be promoted:
  
  <p align = "center">
    <img src = "https://github.com/alv31415/My-Chess/blob/master/Game%20Pictures/Screenshot%202020-08-19%20at%2018.50.31.png">
  </p>
  
- The white King is in check, so its movements are limited:
+ The white chess23.King is in check, so its movements are limited:
  
  <p align = "center">
    <img src = "https://github.com/alv31415/My-Chess/blob/master/Game%20Pictures/Screenshot%202020-08-19%20at%2018.50.53.png">
  </p>
  
- If we want to save the King, the white Bishop only has 1 square available:
+ If we want to save the chess23.King, the white chess23.Bishop only has 1 square available:
  
  <p align = "center">
    <img src = "https://github.com/alv31415/My-Chess/blob/master/Game%20Pictures/Screenshot%202020-08-19%20at%2018.51.14.png">
