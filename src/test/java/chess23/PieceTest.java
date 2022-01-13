@@ -31,7 +31,7 @@ public class PieceTest {
         assertEquals(piece1.getCoords().toString(), "a1");
         assertEquals(piece1.getColour().toString(), "Black" );
         assertEquals(piece1.getName().toString(), "K");
-        assertEquals(piece1.getOGcoord().toString(), "a1");
+        assertEquals(piece1.getOgCoord().toString(), "a1");
         assertEquals(piece1.getPieceID(), "*K*Black*a*");
     }
 
@@ -39,10 +39,10 @@ public class PieceTest {
     public void setters() {
         piece1.setCoords(new Coordinate('b',2));
         assertEquals(piece1.getCoords().toString(), "b2");
-        assertNotEquals(piece1.getCoords(), piece1.getOGcoord());
+        assertNotEquals(piece1.getCoords(), piece1.getOgCoord());
         assertEquals(piece1.getColour().toString(), "Black" );
         assertEquals(piece1.getName().toString(), "K");
-        assertEquals(piece1.getOGcoord().toString(), "a1");
+        assertEquals(piece1.getOgCoord().toString(), "a1");
         assertEquals(piece1.getPieceID(), "*K*Black*a*");
     }
     @Test

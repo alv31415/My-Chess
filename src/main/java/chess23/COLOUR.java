@@ -1,7 +1,7 @@
 package chess23;
 
 /**
- * The chess23.COLOUR enum class is used to assign a certain colour to a given piece.
+ * The COLOUR enum class is used to assign a certain colour to a given piece.
  * The 2 possibilities are B (black) or W (white)
  * There are 2 toString methods
  */

@@ -181,7 +181,7 @@ public class Moves {
                     else
                         return false;
                 case 2:
-                    return piece.getOGcoord().equals(destination)
+                    return piece.getOgCoord().equals(destination)
                             && !tileFull(pieces, destination)
                             && !tileFull(pieces, new chess23.Coordinate(piece.getCoords().getFile(), piece.getCoords().getRank()+1))
                             && fileDifference == 0;
@@ -199,7 +199,7 @@ public class Moves {
                     else
                         return false;
                 case 2:
-                    return piece.getOGcoord().equals(destination)
+                    return piece.getOgCoord().equals(destination)
                             && !tileFull(pieces, destination)
                             && !tileFull(pieces, new chess23.Coordinate(piece.getCoords().getFile(), piece.getCoords().getRank()-1))
                             && fileDifference == 0;

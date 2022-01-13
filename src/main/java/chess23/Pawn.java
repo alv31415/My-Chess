@@ -9,8 +9,8 @@ import java.util.Scanner;
 /*
 1) Class Constructors
 2) Getters & Setters
-3) Special chess23.Pawn chess23.Move Methods
-4) chess23.Pawn Promotion Methods
+3) Special Pawn Move Methods
+4) Pawn Promotion Methods
 5) Overridden Methods
 */
 
@@ -33,13 +33,19 @@ public class Pawn extends Piece {
     public Pawn(COLOUR colour, Coordinate OGcoord) {
         super(ID.PAWN, colour, OGcoord);
         if (getColour() == COLOUR.B)
-            icon = new ImageIcon("BPawn.png");
+            icon = new ImageIcon("icons/BPawn.png");
         else if (getColour() == COLOUR.W)
-            icon = new ImageIcon("WPawn.png");
+            icon = new ImageIcon("icons/WPawn.png");
     }
 
     public Pawn(Pawn original) {
         super(original);
+        icon = getImageIcon();
+        hasMovedTwo = getHasMovedTwo();
+        enPassantLeft = getEnPassantLeft();
+        enPassantRight = getEnPassantLeft();
+        previousCoordinate = getPreviousCoordinate();
+        promotedPiece = getPromotedPiece();
     }
 
     //________________________________________________Getters & Setters________________________________________________
@@ -68,7 +74,7 @@ public class Pawn extends Piece {
         return enPassantRight;
     }
 
-    //________________________________________________Special chess23.Pawn chess23.Move Methods________________________________________________
+    //________________________________________________Special Pawn Move Methods________________________________________________
 
     /**
      * Determines whether the pawn can eat to the left.
@@ -153,7 +159,7 @@ public class Pawn extends Piece {
                 actualForward.add(front1);
             }
 
-            if (pieces.findPiece(this).equals(getOGcoord()) && front2 != Coordinate.emptyCoordinate) {
+            if (pieces.findPiece(this).equals(getOgCoord()) && front2 != Coordinate.emptyCoordinate) {
                 if (Move.tileFull(pieces, front2))
                     return actualForward;
                 else
@@ -186,7 +192,7 @@ public class Pawn extends Piece {
             if (correctPiece) {
                 Pawn potentialPawn = (Pawn) pieces.getPiece(leftTile);
                 boolean correctPassantContext = potentialPawn.getHasMovedTwo()
-                                                && potentialPawn.getPreviousCoordinate().equals(potentialPawn.getOGcoord())
+                                                && potentialPawn.getPreviousCoordinate().equals(potentialPawn.getOgCoord())
                                                 && !potentialPawn.getPreviousCoordinate().equals(potentialPawn.getCoords());
                 if (correctPassantContext) {
                     enPassantMoves.addAll(Move.frontLDigFree(pieces, this, 1));
@@ -203,7 +209,7 @@ public class Pawn extends Piece {
             if (correctPiece) {
                 Pawn potentialPawn = (Pawn) pieces.getPiece(rightTile);
                 boolean correctPassantContext = potentialPawn.getHasMovedTwo()
-                        && potentialPawn.getPreviousCoordinate().equals(potentialPawn.getOGcoord())
+                        && potentialPawn.getPreviousCoordinate().equals(potentialPawn.getOgCoord())
                         && !potentialPawn.getPreviousCoordinate().equals(potentialPawn.getCoords());
                 if (correctPassantContext) {
                     enPassantMoves.addAll(Move.frontRDigFree(pieces, this, 1));
@@ -218,9 +224,9 @@ public class Pawn extends Piece {
     //________________________________________________Pawn Promotion Methods________________________________________________
 
     /**
-     * The promotion query for a chess23.TBIBoard to determine what the pawn will be promoted to
+     * The promotion query for a TBIBoard to determine what the pawn will be promoted to
      * @param promotionSquare the square to which the pawn moves to
-     * @return a chess23.Piece (out of chess23.Queen, chess23.Rook, chess23.Bishop or chess23.Knight), based on the user input.
+     * @return a Piece (out of Queen, Rook, Bishop or Knight), based on the user input.
      * Uses a while loop to make sure that a valid piece is provided.
      * Sets promotedPiece to the corect user input
      * @throws NullPointerException if the promotedPiece is not instantiated
@@ -236,28 +242,28 @@ public class Pawn extends Piece {
 
         while (!correctInput) {
             System.out.println("You can choose between: \n" +
-                    "· chess23.Queen (Q) \n" +
-                    "· chess23.Rook (R) \n" +
-                    "· chess23.Bishop (B) \n" +
-                    "· chess23.Knight (N)");
+                    "· Queen (Q) \n" +
+                    "· Rook (R) \n" +
+                    "· Bishop (B) \n" +
+                    "· Knight (N)");
             String promoted = sc.next();
             switch (promoted) {
-                case "chess23.Queen":
+                case "Queen":
                 case "Q":
                     promotee = new Queen(getColour(), promotionSquare);
                     correctInput = true;
                     break;
-                case "chess23.Rook":
+                case "Rook":
                 case "R":
                     promotee = new Rook(getColour(), promotionSquare);
                     correctInput = true;
                     break;
-                case "chess23.Bishop":
+                case "Bishop":
                 case "B":
                     promotee = new Bishop(getColour(), promotionSquare);
                     correctInput = true;
                     break;
-                case "chess23.Knight":
+                case "Knight":
                 case "N":
                     promotee = new Knight(getColour(), promotionSquare);
                     correctInput = true;
@@ -277,7 +283,7 @@ public class Pawn extends Piece {
     }
 
     /**
-     * The promotion query for a chess23.GUIBoard to determine what the pawn will be promoted to.
+     * The promotion query for a GUIBoard to determine what the pawn will be promoted to.
      * It creates a JOptionPane (showing an option dialog),
      * with JButtons corresponding to the pieces that the pawn can be promoted to
      * Each has an ActionListener, which sets the promotedPiece based on which JButton has been clicked
@@ -295,20 +301,20 @@ public class Pawn extends Piece {
         ImageIcon icon;
 
         if (this.getColour() == COLOUR.B) {
-            queenOption = new JButton(new ImageIcon("BQueen.png"));
-            rookOption = new JButton(new ImageIcon("BRook.png"));
-            bishopOption = new JButton(new ImageIcon("BBishop.png"));
-            knightOption = new JButton(new ImageIcon("BKnight.png"));
+            queenOption = new JButton(new ImageIcon("icons/BQueen.png"));
+            rookOption = new JButton(new ImageIcon("icons/BRook.png"));
+            bishopOption = new JButton(new ImageIcon("icons/BBishop.png"));
+            knightOption = new JButton(new ImageIcon("icons/BKnight.png"));
             promotedPiece = new Queen(COLOUR.B,promotionSquare);
-            icon = new ImageIcon("BPawn.png");
+            icon = new ImageIcon("icons/BPawn.png");
         }
         else {
-            queenOption = new JButton(new ImageIcon("WQueen.png"));
-            rookOption = new JButton(new ImageIcon("WRook.png"));
-            bishopOption = new JButton(new ImageIcon("WBishop.png"));
-            knightOption = new JButton(new ImageIcon("WKnight.png"));
+            queenOption = new JButton(new ImageIcon("icons/WQueen.png"));
+            rookOption = new JButton(new ImageIcon("icons/WRook.png"));
+            bishopOption = new JButton(new ImageIcon("icons/WBishop.png"));
+            knightOption = new JButton(new ImageIcon("icons/WKnight.png"));
             promotedPiece = new Queen(COLOUR.W,promotionSquare);
-            icon = new ImageIcon("WPawn.png");
+            icon = new ImageIcon("icons/WPawn.png");
         }
 
         GuiBoard.formatInvisibleButton(queenOption);
@@ -371,9 +377,9 @@ public class Pawn extends Piece {
     }
 
     /**
-     * Produces an ArrayList containing all the raw moves available to a chess23.Pawn within a given board
+     * Produces an ArrayList containing all the raw moves available to a Pawn within a given board
      * @param pieces the board being played in
-     * @return an ArrayList containing all the coordinates available to a chess23.Pawn, based on:
+     * @return an ArrayList containing all the coordinates available to a Pawn, based on:
      * can it move 0,1 or 2 squares forward (using pawnForward)
      * can it capture on a diagonal? (using canEatLeftDig and canEatRightDig)
      * can it capture en passant? (using enPassant)

@@ -6,15 +6,15 @@ import java.util.*;
 1) Class Constructors
 2) Collection Copying
 3) Getters & Setters
-4) chess23.Piece Related Methods
+4) Piece Related Methods
 5) Board Distribution Related Methods
 6) Game Logic Methods
-7) chess23.Piece Movement Methods
+7) Piece Movement Methods
 8) Overridden Methods
 */
 
 /**
- * The chess23.Pieces class is used to represent the board that is being played with.
+ * The Pieces class is used to represent the board that is being played with.
  * It contains the position of all pieces, alongside all the methods that handle game logic,
  * such as checking when a game ends or handling the movement of a piece.
  */
@@ -22,14 +22,14 @@ import java.util.*;
 public class Pieces {
 
     /**
-     * pieces is a HashMap which uses a chess23.Coordinate-chess23.Piece key-value pair,
-     * with the chess23.Coordinate representing the current position of the chess23.Piece
+     * pieces is a HashMap which uses a Coordinate-Piece key-value pair,
+     * with the Coordinate representing the current position of the Piece
      *
-     * previousPieces is a HashMap which uses a chess23.Coordinate-chess23.Piece key-value pair, used of a representation of the previous board
+     * previousPieces is a HashMap which uses a Coordinate-Piece key-value pair, used of a representation of the previous board
      * isCapture is a boolean value, used to determine whether a given move has led to a capture
-     * isGUIGame is a boolean value, used to determine whether the current game being played is via a chess23.GUIBoard or a chess23.TBIBoard
+     * isGUIGame is a boolean value, used to determine whether the current game being played is via a GUIBoard or a TBIBoard
      *
-     * gameProgress is an ArrayList, containg HashMaps with chess23.Coordinate-chess23.Piece key-value pairs,
+     * gameProgress is an ArrayList, containg HashMaps with Coordinate-Piece key-value pairs,
      * used to store the board's development as a game is played.
      * This is used to determine whether there is a draw by threefold repetition
      */
@@ -46,7 +46,9 @@ public class Pieces {
         pieces = Boards.getChessBoard();
         previousPieces = copyHashMap(pieces);
         gameProgress.add(copyHashMap(pieces));
-        updatePotentials(); // when we instantiate chess23.Pieces, we immediately calculte the potential moves to begin the game
+
+        // when we instantiate Pieces, we immediately calculate the potential moves to begin the game
+        updatePotentials();
     }
 
     public Pieces(HashMap<Coordinate, Piece> newBoard) {
@@ -56,7 +58,8 @@ public class Pieces {
         updatePotentials();
     }
 
-    public Pieces (Pieces original) { // we create a copy constructor to help calculate potential moves
+    // we create a copy constructor to help calculate potential moves
+    public Pieces (Pieces original) {
         this.pieces = copyHashMap(original.getPieces());
         this.previousPieces = original.previousPieces;
         this.isCapture = original.isCapture;
@@ -122,7 +125,7 @@ public class Pieces {
     //________________________________________________Piece Related Methods________________________________________________
 
     /**
-     * Adds a chess23.Coordinate-chess23.Piece key-value pair to the pieces HashMap (used when handling a piece movement)
+     * Adds a Coordinate-Piece key-value pair to the pieces HashMap (used when handling a piece movement)
      * @param coordinate the destination coordinate for a given move
      * @param piece the piece making the move
      */
@@ -132,9 +135,9 @@ public class Pieces {
     }
 
     /**
-     * Finds a given piece within the current instance of chess23.Pieces
+     * Finds a given piece within the current instance of Pieces
      * @param piece the piece that is looked for
-     * @return the chess23.Coordinate that a given piece occupies. If the piece isn't in the board, returns the emptyCoordinate
+     * @return the Coordinate that a given piece occupies. If the piece isn't in the board, returns the emptyCoordinate
      * @throws NullPointerException if the piece provided isn't instantiated
      */
 
@@ -151,9 +154,9 @@ public class Pieces {
     }
 
     /**
-     * Finds a given king within the current instance of chess23.Pieces
+     * Finds a given king within the current instance of Pieces
      * @param colour the colour of the king that is being looked for
-     * @return the chess23.Coordinate that the chess23.King occupies. If the chess23.King isn't in the board, returns the emptyCoordinate
+     * @return the Coordinate that the King occupies. If the King isn't in the board, returns the emptyCoordinate
      */
 
     public Coordinate findKing(COLOUR colour) {
@@ -162,16 +165,16 @@ public class Pieces {
             if (potentialKing.getName().equals(ID.KING) && (potentialKing.getColour() == colour))
                 return key;
         }
-        String pieceNotInBoard = "chess23.King not found. Assuming it isn't in board. Empty coordinate provided.";
+        String pieceNotInBoard = "King not found. Assuming it isn't in board. Empty coordinate provided.";
         System.err.println(pieceNotInBoard);
         return Coordinate.emptyCoordinate;
     }
 
     /**
-     * Returns a piece within the current instance of chess23.Pieces, given a chess23.Coordinate
+     * Returns a piece within the current instance of Pieces, given a Coordinate
      * @param coordinate the coordinate that is being looked for within the board
-     * @return the chess23.Piece occupying the given coordinate. If there is no piece at the coordinate, returns the emptyPiece
-     * @throws NullPointerException if the chess23.Coordinate provided isn't instantiated
+     * @return the Piece occupying the given coordinate. If there is no piece at the coordinate, returns the emptyPiece
+     * @throws NullPointerException if the Coordinate provided isn't instantiated
      */
 
     public Piece getPiece(Coordinate coordinate) {
@@ -249,7 +252,7 @@ public class Pieces {
     }
 
     /**
-     * For a given piece, determines whether there is a piece in the same file of the same type (i.e same chess23.ID)
+     * For a given piece, determines whether there is a piece in the same file of the same type (i.e same ID)
      * @param piece the piece that is being considered
      * @return true if and only if there is a piece, of the same colour, of the same type in the same file as the argument piece
      * within the given board
@@ -269,7 +272,7 @@ public class Pieces {
     }
 
     /**
-     * For a given piece, determines whether there is a piece in the same rank of the same type (i.e same chess23.ID)
+     * For a given piece, determines whether there is a piece in the same rank of the same type (i.e same ID)
      * @param piece the piece that is being considered
      * @return true if and only if there is a piece, of the same colour, of the same type in the same rank as the argument piece
      * within the given board
@@ -334,7 +337,7 @@ public class Pieces {
     /**
      * Determines whether there is mate on the board.
      * @param colour the colour that could be in mate
-     * @return true if the chess23.King of the given colour is in check, and all the pieces of that colour have no possible moves (no potential moves)
+     * @return true if the King of the given colour is in check, and all the pieces of that colour have no possible moves (no potential moves)
      */
 
     public boolean isMate(COLOUR colour) {
@@ -388,7 +391,7 @@ public class Pieces {
 
             boolean sameColourBishops = counterB == 1 &&
                                         counterW == 1 &&
-                                        bishopB.getOGcoord().getFile() != bishopW.getOGcoord().getFile();
+                                        bishopB.getOgCoord().getFile() != bishopW.getOgCoord().getFile();
 
             return twoKings && sameColourBishops;
         }
@@ -446,9 +449,9 @@ public class Pieces {
      * It sets the previous pieces and determines whether there has been a capture.
      * After making the move, the potential moves of the new pieces are recalculated,
      * and the given pieces HashMap are added to gameProgress.
-     * For all pieces except the chess23.King and the chess23.Pawn, pieceMove is used.
-     * For chess23.King, we consider whether castling is possible. If so, the king and corresponding rook are moved.
-     * For chess23.Pawn, we consider promotion (executing a promotion query) and en passant capture.
+     * For all pieces except the King and the Pawn, pieceMove is used.
+     * For King, we consider whether castling is possible. If so, the king and corresponding rook are moved.
+     * For Pawn, we consider promotion (executing a promotion query) and en passant capture.
      * @param coordinate the destination coordinate for a given move
      * @param piece the piece that is making the move
      */

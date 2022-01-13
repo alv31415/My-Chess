@@ -1,7 +1,7 @@
 package chess23;
 
 /**
- * The chess23.BOARD enum class contains information abou tthe "limiting" constants of a chess board
+ * The BOARD enum class contains information about the "limiting" constants of a chess board
  * These are the first file ('a'), the last file ('h), the first rank (1) and the last rank (8)
  * Also contains methods to get these values
  */

@@ -10,34 +10,134 @@ import java.util.*;
 4) Overridden Methods
 */
 
+/**
+ * Class representing a king in chess.
+ */
 public class King extends Piece{
 
-    // the coordinate to which the king goes after castling chess23.King side
+    /**
+     * The {@link Coordinate} to which the {@link King} goes after castling kingside.
+     */
     private Coordinate castleCoordKingK;
-    // the coordinate to whcih the king goes after castling chess23.Queen side
+
+    /**
+     * The {@link Coordinate} to which the {@link King} goes after castling queenside.
+     */
     private Coordinate castleCoordKingQ;
-    // the coordinate through which the king goes when castling chess23.King side
+
+    /**
+     * The {@link Coordinate} through which the {@link King} goes when castling kingside.
+     * This is used to ensure that if we castle, we do so without being checked.
+     */
     private Coordinate transitionCoordKingK;
-    // the coordinate through which the king goes when castling chess23.Queen side
+
+    /**
+     * The {@link Coordinate} through which the {@link King} goes when castling queenside.
+     * This is used to ensure that if we castle, we do so without being checked.
+     */
     private Coordinate transitionCoordKingQ;
-    // the rook on the chess23.King side
+
+    /**
+     * The {@link Rook} on the kingside.
+     */
     private Rook rookKing;
-    // the rook on the chess23.Queen side
+
+    /**
+     * The {@link Rook} on the queenside.
+     */
     private Rook rookQueen;
+
+    /**
+     * The icon representing the {@link King} in the GUI.
+     */
     private ImageIcon icon;
 
     //________________________________________________Class Constructors________________________________________________
 
-    public King(COLOUR colour, Coordinate OGcoord) {
-        super(ID.KING, colour, OGcoord);
+    /**
+     * Class constructor for a {@link King}.
+     * @param colour a {@link COLOUR}, representing the colour of the {@link King}.
+     * @param ogCoord a {@link Coordinate}, representing the starting square of the {@link King}.
+     */
+    public King(COLOUR colour, Coordinate ogCoord) {
+        super(ID.KING, colour, ogCoord);
+
+        // instantiate the icon depending on the colour of the king
         if (getColour() == COLOUR.B)
-            icon = new ImageIcon("BKing.png");
+            icon = new ImageIcon("icons/BKing.png");
         else if (getColour() == COLOUR.W)
-            icon = new ImageIcon("WKing.png");
+            icon = new ImageIcon("icons/WKing.png");
     }
 
+    /**
+     * Copy constructor for a {@link King}.
+     * @param original the {@link King} we are copying.
+     */
     public King(King original) {
         super(original);
+        icon = getImageIcon();
+        castleCoordKingK = getCastleCoordKingK();
+        castleCoordKingQ = getCastleCoordKingQ();
+        rookKing = getRookKing();
+        rookQueen = getRookQueen();
+        transitionCoordKingK = getTransitionCoordKingK();
+        transitionCoordKingQ = getTransitionCoordKingQ();
+    }
+
+    //________________________________________________Overridden Methods________________________________________________
+
+    /**
+     * Produces a deep copy of the {@link King} instance.
+     * @return a {@link King} produced as a deep copy of the instance.
+     */
+    @Override
+    public King makeCopy() {
+        return new King(this);
+    }
+
+    /**
+     * Produces an {@link ArrayList} containing all the raw moves available
+     * to the {@link King} instance.
+     * @param pieces the {@link Pieces} used for playing.
+     * @return an {@link ArrayList}, containing all the {@link Coordinate} squares
+     *         reachable by the {@link King}.
+     */
+    @Override
+    public ArrayList<Coordinate> getRawMoves(Pieces pieces) {
+
+        // consider vertical, horizontal and diagonal moves of a single step
+        ArrayList<Coordinate> front = Move.frontFree(pieces,this, single);
+        ArrayList<Coordinate> right = Move.rightFree(pieces,this, single);
+        ArrayList<Coordinate> back = Move.backFree(pieces,this, single);
+        ArrayList<Coordinate> left = Move.leftFree(pieces,this, single);
+        ArrayList<Coordinate> frontRDig = Move.frontRDigFree(pieces, this, single);
+        ArrayList<Coordinate> backRDig = Move.backRDigFree(pieces, this, single);
+        ArrayList<Coordinate> backLDig = Move.backLDigFree(pieces, this, single);
+        ArrayList<Coordinate> frontLDig = Move.frontLDigFree(pieces, this, single);
+
+        // join all possible moves
+        front.addAll(right);
+        back.addAll(left);
+        front.addAll(back);
+
+        frontRDig.addAll(backRDig);
+        backLDig.addAll(frontLDig);
+        frontRDig.addAll(backLDig);
+
+        front.addAll(frontRDig);
+
+        // if the king can castle, add corresponding move
+        if (canCastleKing(pieces))
+            front.add(castleCoordKingK);
+        if (canCastleQueen(pieces))
+            front.add(castleCoordKingQ);
+
+        return front;
+    }
+
+    @Override
+    public ImageIcon getImageIcon() {
+        return icon;
     }
 
     //________________________________________________Getters & Setters________________________________________________
@@ -69,86 +169,104 @@ public class King extends Piece{
     //________________________________________________Castling Validation Methods________________________________________________
 
     /**
-     * Determines whether a chess23.King can castle king side (short castling)
-     * @param pieces the board being played in
-     * @return true if and only if:
-     * the king isn't in check
-     * there is a rook on the king side (h1 for whites, h8 for blacks)
-     * there are no pieces between the king and the rook
-     * neither the rook nor the king have moved
-     * If the king can castle, then the coordinate to which the king goes to castle is added to castleCoordKingk
-     * It sets the corresponding coordinate to the king side rook
-     * It also saves the coordinate through which the king goes when castling.
-     * This is used in "removeOwnCheck" to ascertain that castling is possible
-     * ("One may not castle out of, through, or into check.")
+     * Determines whether a {@link King} can castle kingside (short castling).
+     * @param pieces the {@link Pieces} used for playing.
+     * @return {@code true} if and only if we adhere to the principle "one may not castle out of, through, or into check.":
+     * <ul>
+     *     <li>the {@link King} isn't in check,</li>
+     *     <li>there is a {@link Rook} on the kingside ({@code h1} for white, {@code h8} for black),</li>
+     *     <li>there are no pieces between the {@link King} and the {@link Rook}</li>
+     *     <li>neither the kingside {@link Rook} nor the {@link King} have moved</li>
+     * </ul>
+     * If the {@link King} can castle, then {@link #castleCoordKingK} and {@link #transitionCoordKingK} are updated. 
+     * <br>
+     * It also updates the moves of the kingside {@link Rook} to include castling.
      */
-
     public boolean canCastleKing (Pieces pieces) {
 
+        // if the king is in check we can't castle
         if (pieces.isCheck(getColour()))
             return false;
 
+        // otherwise, fetch all the pieces of the same colour as the king
         HashMap<Coordinate, Piece> colouredPieces = pieces.getColourPieces(getColour());
 
-        for (Piece value : colouredPieces.values()) {
-            if (value.getName() == ID.ROOK && value.getFile() == BOARD.LAST_FILE.getFileVal())
-                rookKing = (Rook) value;
+        // check if there is a rook on the kingside
+        for (Piece piece : colouredPieces.values()) {
+            if (piece.getName() == ID.ROOK && piece.getFile() == BOARD.LAST_FILE.getFileVal())
+                rookKing = (Rook) piece;
         }
 
+        // the (expected) number of squares from the kingside rook to the king
         int distanceRookKing = 2;
+
         ArrayList<Coordinate> castleCoords;
 
+        // get the coordinate to which the kingside rook would move should it castle
         if (getColour() == COLOUR.B)
             castleCoords = Move.leftFree(pieces, this, dimension);
         else
             castleCoords = Move.rightFree(pieces, this, dimension);
 
+        // determine if there is space for castling
         boolean isSpace = castleCoords.size() == distanceRookKing;
 
+        // we can castle if there is a kingside rook,
+        // neither the rook nor the king have moved,
+        // and there is space between rook and king.
+        // this doesn't consider the situation in which a transition square is being checked
+        // by a enemy piece, but this is handled when refining the moves that the king can make later on
         boolean canCastle = rookKing != null &&
                 !rookKing.getHasMoved() &&
                 !getHasMoved() &&
                 isSpace;
 
+        // if the king can castle, update the coordinates for the rook and king
         if (canCastle) {
             castleCoordKingK = castleCoords.get(1);
             transitionCoordKingK = castleCoords.get(0);
             rookKing.setCastleCoordRook(castleCoords.get(0));
             return true;
         }
+
         return false;
     }
 
     /**
-     * Determines whether a chess23.King can castle queen side (long castling)
-     * @param pieces the board being played in
-     * @return true if and only if:
-     * the king isn't in check
-     * there is a rook on the queen side (a1 for whites, a8 for blacks)
-     * there are no pieces between the king and the rook
-     * neither the rook nor the king have moved
-     * If the king can castle, then the coordinate to which the king goes to castle is added to castleCoordKingQ
-     * It sets the corresponding coordinate to the queen side rook
-     * It also saves the coordinate through which the king goes when castling.
-     * This is used in "removeOwnCheck" to ascertain that castling is possible
-     * ("One may not castle out of, through, or into check.")
+     * Determines whether a {@link King} can castle queenside (long castling).
+     * @param pieces the {@link Pieces} used for playing.
+     * @return {@code true} if and only if we adhere to the principle "one may not castle out of, through, or into check.":
+     * <ul>
+     *     <li>the {@link King} isn't in check,</li>
+     *     <li>there is a {@link Rook} on the queenside ({@code a1} for white, {@code a8} for black),</li>
+     *     <li>there are no pieces between the {@link King} and the {@link Rook}</li>
+     *     <li>neither the queenside {@link Rook} nor the {@link King} have moved</li>
+     * </ul>
+     * If the {@link King} can castle, then {@link #castleCoordKingQ} and {@link #transitionCoordKingQ} are updated.
+     * <br>
+     * It also updates the moves of the queenside {@link Rook} to include castling.
      */
-
     public boolean canCastleQueen (Pieces pieces) {
 
+        // if the king is in check we can't castle
         if (pieces.isCheck(getColour()))
             return false;
 
+        // otherwise, fetch all the pieces of the same colour as the king
         HashMap<Coordinate,Piece> colouredPieces = pieces.getColourPieces(getColour());
 
+        // check if there is a rook on the queenside
         for (Piece value : colouredPieces.values()) {
             if (value.getName() == ID.ROOK && value.getFile() == BOARD.FIRST_FILE.getFileVal())
                 rookQueen = (Rook) value;
         }
 
+        // the (expected) number of squares from the queenside rook to the king
         int distanceRookQueen = 3;
+
         ArrayList<Coordinate> castleCoords;
 
+        // get the coordinate to which the queenside rook would move should it castle
         if (getColour() == COLOUR.W) {
             castleCoords = Move.leftFree(pieces, this, dimension);
         }
@@ -156,14 +274,20 @@ public class King extends Piece{
             castleCoords = Move.rightFree(pieces, this, dimension);
         }
 
+        // determine if there is space for castling
         boolean isSpace = castleCoords.size() == distanceRookQueen;
 
-
+        // we can castle if there is a queenside rook,
+        // neither the rook nor the king have moved,
+        // and there is space between rook and king.
+        // this doesn't consider the situation in which a transition square is being checked
+        // by a enemy piece, but this is handled when refining the moves that the king can make later on
         boolean canCastle = rookQueen != null &&
                 !rookQueen.getHasMoved() &&
                 !getHasMoved() &&
                 isSpace;
 
+        // if the king can castle, update the coordinates for the rook and king
         if (canCastle) {
             castleCoordKingQ = castleCoords.get(1);
             transitionCoordKingQ = castleCoords.get(0);
@@ -171,58 +295,6 @@ public class King extends Piece{
             return true;
         }
         return false;
-    }
-
-    //________________________________________________Overridden Methods________________________________________________
-
-    @Override
-    public King makeCopy() {
-        return new King(this);
-    }
-
-    /**
-     * Produces an ArrayList containing all the raw moves available to a chess23.King within a given board
-     * @param pieces the board being played in
-     * @return an ArrayList containing all the coordinates produced from the chess23.Move class
-     * (all the diagonals, all verticals and all horizontals, using 1 as a limit).
-     * Also adds coordinates if castling is possible.
-     */
-
-    @Override
-    public ArrayList<Coordinate> getRawMoves(Pieces pieces) {
-        //get and add all "raw" moves (reachable from position)
-        ArrayList<Coordinate> front = Move.frontFree(pieces,this,single);
-        ArrayList<Coordinate> right = Move.rightFree(pieces,this,single);
-        ArrayList<Coordinate> back = Move.backFree(pieces,this,single);
-        ArrayList<Coordinate> left = Move.leftFree(pieces,this,single);
-        ArrayList<Coordinate> frontRDig = Move.frontRDigFree(pieces, this,single);
-        ArrayList<Coordinate> backRDig = Move.backRDigFree(pieces, this, single);
-        ArrayList<Coordinate> backLDig = Move.backLDigFree(pieces, this,single);
-        ArrayList<Coordinate> frontLDig = Move.frontLDigFree(pieces, this, single);
-
-        front.addAll(right);
-        back.addAll(left);
-        front.addAll(back);
-
-        frontRDig.addAll(backRDig);
-        backLDig.addAll(frontLDig);
-        frontRDig.addAll(backLDig);
-
-        front.addAll(frontRDig);
-
-        // if can castle, add coordinates
-        if (canCastleKing(pieces))
-            front.add(castleCoordKingK);
-        if (canCastleQueen(pieces))
-            front.add(castleCoordKingQ);
-
-
-        return front;
-    }
-
-    @Override
-    public ImageIcon getImageIcon() {
-        return icon;
     }
 
 

@@ -50,7 +50,7 @@ public class MoveTest {
 
         // against own piece
         Pawn behindWQueen = new Pawn(COLOUR.W,new Coordinate('g',2));
-        p.addPiece(behindWQueen.getOGcoord(),behindWQueen);
+        p.addPiece(behindWQueen.getOgCoord(),behindWQueen);
         ArrayList<String> pawnList = new ArrayList<>(Arrays.asList("g4","g3"));
         assertEquals(pawnList.toString(), Move.backFree(p,queenW,max).toString());
         // against end of board
@@ -58,7 +58,7 @@ public class MoveTest {
         assertEquals(knightList.toString(), Move.backFree(p,knightB,max).toString());
         // eat other piece
         Pawn behindWQueenB = new Pawn(COLOUR.B,new Coordinate('g',4));
-        p.addPiece(behindWQueenB.getOGcoord(),behindWQueenB);
+        p.addPiece(behindWQueenB.getOgCoord(),behindWQueenB);
         ArrayList<String> pawnList2 = new ArrayList<>(Collections.singletonList("g4"));
         assertEquals(pawnList2.toString(), Move.backFree(p,queenW,max).toString());
     }
@@ -73,7 +73,7 @@ public class MoveTest {
         assertEquals(pawnList.toString(), Move.rightFree(p,pawnB,max).toString());
         // eat other piece
         Pawn behindWQueen = new Pawn(COLOUR.B,new Coordinate('g',2));
-        p.addPiece(behindWQueen.getOGcoord(),behindWQueen);
+        p.addPiece(behindWQueen.getOgCoord(),behindWQueen);
         ArrayList<String> pawnList2 = new ArrayList<>(Arrays.asList("f2","g2"));
         assertEquals(pawnList2.toString(), Move.rightFree(p,pawnWe,max).toString());
     }
@@ -88,7 +88,7 @@ public class MoveTest {
         assertEquals(knightList.toString(), Move.leftFree(p,knightB,max).toString());
         // eat other piece
         Pawn behindWQueen = new Pawn(COLOUR.B,new Coordinate('g',2));
-        p.addPiece(behindWQueen.getOGcoord(),behindWQueen);
+        p.addPiece(behindWQueen.getOgCoord(),behindWQueen);
         ArrayList<String> pawnList2 = new ArrayList<>(Collections.singletonList("g2"));
         assertEquals(pawnList2.toString(), Move.leftFree(p,pawnWh,max).toString());
     }
@@ -116,7 +116,7 @@ public class MoveTest {
         assertEquals(bishopList2.toString(), Move.backRDigFree(p,pawnB,max).toString());
         // eat other piece
         Pawn behindBPawn = new Pawn(COLOUR.W,new Coordinate('g',8));
-        p.addPiece(behindBPawn.getOGcoord(),behindBPawn);
+        p.addPiece(behindBPawn.getOgCoord(),behindBPawn);
         ArrayList<String> pawnList2 = new ArrayList<>(Collections.singletonList("g8"));
         assertEquals(pawnList2.toString(), Move.backRDigFree(p,knightB,max).toString());
     }
@@ -144,7 +144,7 @@ public class MoveTest {
         assertEquals(pawnList.toString(), Move.backLDigFree(p,pawnB,max).toString());
         // eat other piece
         Pawn behindBPawn = new Pawn(COLOUR.W,new Coordinate('h',8));
-        p.addPiece(behindBPawn.getOGcoord(),behindBPawn);
+        p.addPiece(behindBPawn.getOgCoord(),behindBPawn);
         ArrayList<String> pawnList2 = new ArrayList<>(Collections.singletonList("h8"));
         assertEquals(pawnList2.toString(), Move.backLDigFree(p,pawnB,max).toString());
     }
@@ -169,9 +169,9 @@ public class MoveTest {
         assertEquals(bishopList.toString(), Move.backKnight(p,bishopW).toString());
         // eat piece
         Pawn behindWQueen = new Pawn(COLOUR.B,new Coordinate('f',3));
-        p.addPiece(behindWQueen.getOGcoord(),behindWQueen);
+        p.addPiece(behindWQueen.getOgCoord(),behindWQueen);
         Pawn behindWQueen2 = new Pawn(COLOUR.B,new Coordinate('h',3));
-        p.addPiece(behindWQueen2.getOGcoord(),behindWQueen);
+        p.addPiece(behindWQueen2.getOgCoord(),behindWQueen);
         ArrayList<String> queenList = new ArrayList<>(Arrays.asList("f3","h3"));
         assertEquals(queenList.toString(), Move.backKnight(p,queenW).toString());
         // against end of board
@@ -199,7 +199,7 @@ public class MoveTest {
         assertEquals(queenList.toString(), Move.leftKnight(p,queenW).toString());
         // eat piece
         Pawn byWKing = new Pawn(COLOUR.B,new Coordinate('c',1));
-        p.addPiece(byWKing.getOGcoord(),byWKing);
+        p.addPiece(byWKing.getOgCoord(),byWKing);
         ArrayList<String> pawnList = new ArrayList<>(Collections.singletonList("e2"));
         assertEquals(pawnList.toString(), Move.leftKnight(p,byWKing).toString());
         // against end of board

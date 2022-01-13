@@ -10,7 +10,7 @@ import java.util.Objects;
 */
 
 /**
- * The chess23.Coordinate class is used to determine the position of the pieces within the board.
+ * The Coordinate class is used to determine the position of the pieces within the board.
  * A chess coordinate is determined by its file (column), represented as a lowercase character from a to h;
  * and its rank (row), represented as a number from 1 to 8.
  */
@@ -65,7 +65,7 @@ public class Coordinate {
     //________________________________________________Validating Method________________________________________________
 
     /**
-     * inBoard checks that an instance of a chess23.Coordinate is within the chess board
+     * inBoard checks that an instance of a Coordinate is within the chess board
      * @param coord is the coordinate that is checked for validity within the board
      * @return true if the coordinate is in the board
      */

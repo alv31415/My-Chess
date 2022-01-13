@@ -1,7 +1,8 @@
 package chess23;
 
 /**
- * The chess23.ID enum class is used to identify the "type" of a piece (chess23.King, chess23.Queen, chess23.Rook, chess23.Bishop, chess23.Knight, and chess23.Pawn)
+ * The ID enum class is used to identify the "type" of a
+ * piece (King, Queen, Rook, Bishop, Knight, and Pawn)
  * Each has 2 toString methods
  */
 
@@ -12,7 +13,7 @@ public enum ID {
             return "K";
         }
         public String toFullString() {
-            return "chess23.King";
+            return "King";
         }
     },
     QUEEN {
@@ -21,7 +22,7 @@ public enum ID {
             return "Q";
         }
         public String toFullString() {
-            return "chess23.Queen";
+            return "Queen";
         }
     },
     ROOK {
@@ -30,7 +31,7 @@ public enum ID {
             return "R";
         }
         public String toFullString() {
-            return "chess23.Rook";
+            return "Rook";
         }
     },
     BISHOP {
@@ -39,7 +40,7 @@ public enum ID {
             return "B";
         }
         public String toFullString() {
-            return "chess23.Bishop";
+            return "Bishop";
         }
     },
     KNIGHT {
@@ -48,7 +49,7 @@ public enum ID {
             return "N";
         }
         public String toFullString() {
-            return "chess23.Knight";
+            return "Knight";
         }
     },
     PAWN {
@@ -57,7 +58,7 @@ public enum ID {
             return "";
         }
         public String toFullString() {
-            return "chess23.Pawn";
+            return "Pawn";
         }
     };
 

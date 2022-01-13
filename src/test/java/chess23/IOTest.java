@@ -40,7 +40,7 @@ public class IOTest {
         assertEquals("", ChessIO.removeAmbiguous(p,new Coordinate('e',3),rookWh));
         // 2 knights attack from same file and different rank
         Knight knightBh = new Knight(COLOUR.B, new Coordinate('h',5));
-        p.addPiece(knightBh.getOGcoord(), knightBh);
+        p.addPiece(knightBh.getOgCoord(), knightBh);
         p.updatePotentials();
         assertEquals("7", ChessIO.removeAmbiguous(p,bCoord,knightB));
         assertEquals("5", ChessIO.removeAmbiguous(p,bCoord,knightBh));
@@ -148,7 +148,7 @@ public class IOTest {
         assertEquals("Rfe3+", ChessIO.moveString(p,new Coordinate('e',3),rookWh));
 
         Knight knightBh = new Knight(COLOUR.B, new Coordinate('h',5));
-        p.addPiece(knightBh.getOGcoord(), knightBh);
+        p.addPiece(knightBh.getOgCoord(), knightBh);
         p.updatePotentials();
         p.makeMove(new Coordinate(new Coordinate('f',8)),kingB);
         p.makeMove(bCoord, knightB);

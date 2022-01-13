@@ -20,13 +20,15 @@ public class Rook extends Piece{
     public Rook(COLOUR colour, Coordinate OGcoord) {
         super(ID.ROOK, colour, OGcoord);
         if (getColour() == COLOUR.B)
-            icon = new ImageIcon("BRook.png");
+            icon = new ImageIcon("icons/BRook.png");
         else if (getColour() == COLOUR.W)
-            icon = new ImageIcon("WRook.png");
+            icon = new ImageIcon("icons/WRook.png");
     }
 
     public Rook (Rook original) {
         super(original);
+        icon = getImageIcon();
+        castleCoordRook = getCastleCoordRook();
     }
 
     //________________________________________________Getters & Setters________________________________________________
@@ -47,9 +49,9 @@ public class Rook extends Piece{
     }
 
     /**
-     * Produces an ArrayList containing all the raw moves available to a chess23.Rook within a given board
+     * Produces an ArrayList containing all the raw moves available to a Rook within a given board
      * @param pieces the board being played in
-     * @return an ArrayList containing all the coordinates produced from the chess23.Move class (all the verticals and all the horizontals)
+     * @return an ArrayList containing all the coordinates produced from the Move class (all the verticals and all the horizontals)
      */
 
     @Override

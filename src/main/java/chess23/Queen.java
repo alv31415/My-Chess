@@ -17,13 +17,14 @@ public class Queen extends Piece{
     public Queen(COLOUR colour, Coordinate OGcoord) {
         super(ID.QUEEN, colour, OGcoord);
         if (getColour() == COLOUR.B)
-            icon = new ImageIcon("BQueen.png");
+            icon = new ImageIcon("icons/BQueen.png");
         else if (getColour() == COLOUR.W)
-            icon = new ImageIcon("WQueen.png");
+            icon = new ImageIcon("icons/WQueen.png");
     }
 
     public Queen(Queen original) {
         super(original);
+        icon = getImageIcon();
     }
 
     //________________________________________________Overridden Methods________________________________________________
@@ -34,9 +35,9 @@ public class Queen extends Piece{
     }
 
     /**
-     * Produces an ArrayList containing all the raw moves available to a chess23.Queen within a given board
+     * Produces an ArrayList containing all the raw moves available to a Queen within a given board
      * @param pieces the board being played in
-     * @return an ArrayList containing all the coordinates produced from the chess23.Move class
+     * @return an ArrayList containing all the coordinates produced from the Move class
      * (all the diagonals, all verticals and all horizontals)
      */
 

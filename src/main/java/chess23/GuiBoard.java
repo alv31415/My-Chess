@@ -20,14 +20,14 @@ import java.util.HashSet;
 2) Board Labelling Methods
 3) Board Formatting Methods
 4) Information Panel Method
-5) chess23.Piece Movement Methods
+5) Piece Movement Methods
 6) Game Saving Class
-7) chess23.Piece Movement Methods
+7) Piece Movement Methods
 8) Overridden Methods
 */
 
 /**
- * The chess23.GUIBoard class contains all the methods and classes used to display the game of chess
+ * The GUIBoard class contains all the methods and classes used to display the game of chess
  */
 
 public class GuiBoard extends JFrame {
@@ -77,13 +77,13 @@ public class GuiBoard extends JFrame {
     // piece selected to move
     private Piece movingPiece;
 
-    // ActionHandler used in chess23.GUIBoard constructor
+    // ActionHandler used in GUIBoard constructor
     ButtonHandle gameClick = new ButtonHandle();
 
     //________________________________________________Class Constructor________________________________________________
 
     /**
-     * The chess23.GUIBoard construcotr creates the chess board
+     * The GUIBoard construcotr creates the chess board
      * It assigns buttons to the boards 2D array, and adds their ActionListeners (gameClick)
      * Adds all the additional JPanels (i.e to show files, rows, save panels, etc...)
      * Sets up the JFrame
@@ -458,7 +458,7 @@ public class GuiBoard extends JFrame {
          * Used to turn 2D array "coordinates" into chess board coordinates
          * @param row the row of the 2D array
          * @param column the column of the 2D array
-         * @return the chess23.Coordinate corresponding to an element of the board array with the given row and column
+         * @return the Coordinate corresponding to an element of the board array with the given row and column
          */
 
         private Coordinate toCoordinate(int row, int column) {
@@ -559,7 +559,7 @@ public class GuiBoard extends JFrame {
         /**
          * This handles the saving of a game.
          * It produces a JOptionPane with an InputDialog.
-         * We use chess23.ChessIO to validate the file path provided.
+         * We use ChessIO to validate the file path provided.
          * JOptionPane with message dialogs are then presented, based on whether the save was successful or not
          */
 

@@ -11,19 +11,19 @@ import java.util.Scanner;
 4) Horizontal Movement Methods
 5) Diagonal Right Movement Methods
 6) Diagonal Left Movement Methods
-7) Vertical chess23.Knight Movement Methods
-8) Horizontal chess23.Knight Movement Methods
-9) chess23.Move Input Methods
+7) Vertical Knight Movement Methods
+8) Horizontal Knight Movement Methods
+9) Move Input Methods
 */
 
 /**
- * The chess23.Move class contains all methods that are used to find all raw moves for a given piece.
- * The move calculating methods all have a chess23.Pieces, chess23.Piece and int argument.
- * chess23.Pieces is where the game is being played
- * chess23.Piece is the piece that is being moved
+ * The Move class contains all methods that are used to find all raw moves for a given piece.
+ * The move calculating methods all have a Pieces, Piece and int argument.
+ * Pieces is where the game is being played
+ * Piece is the piece that is being moved
  * the int (known as limit) is how many "steps" in a given direction we want to lok for
  * We have generic methods for calculating vertical, horizontal and diagonal moves in all directions.
- * We also have individual methods for calculating the moves of a chess23.Knight
+ * We also have individual methods for calculating the moves of a Knight
  * We use a "factor" (either 1 or -1) to calculate raw coordinates, depending on whether the piece being moved is white or black
  * (black moving forward is the same direction as white moving backward)
  * For diagonals, we also have a factorV (for vertical movement) and factorH (for horizontal movement)
@@ -45,7 +45,7 @@ public class Move {
     //________________________________________________Support Methods________________________________________________
 
     /**
-     * Given a certain pieces HashMap and a given chess23.Coordinate, checks whether the coordinate is occupied by a piece of agiven colour
+     * Given a certain pieces HashMap and a given Coordinate, checks whether the coordinate is occupied by a piece of agiven colour
      * @param pieces the board on which the game is being played
      * @param destination the coordinate being considered
      * @param colour the colour being considered
@@ -61,7 +61,7 @@ public class Move {
     }
 
     /**
-     * Given a certain pieces HashMap and a given chess23.Coordinate, checks whether the coordinate is occupied by a piece
+     * Given a certain pieces HashMap and a given Coordinate, checks whether the coordinate is occupied by a piece
      * @param pieces the board on which the game is being played
      * @param destination the coordinate being considered
      * @return true if the coordinate is occupied by a piece
@@ -349,9 +349,9 @@ public class Move {
         return moves;
     }
 
-    //________________________________________________Vertical chess23.Knight Movement Methods________________________________________________
+    //________________________________________________Vertical Knight Movement Methods________________________________________________
 
-    // checks chess23.Knight moves directly in front
+    // checks Knight moves directly in front
 
     public static ArrayList<Coordinate> frontKnight(Pieces pieces, Piece piece) {
 
@@ -387,7 +387,7 @@ public class Move {
         return moves;
     }
 
-    // checks chess23.Knight moves directly behind
+    // checks Knight moves directly behind
 
     public static ArrayList<Coordinate> backKnight(Pieces pieces, Piece piece) {
 
@@ -423,9 +423,9 @@ public class Move {
         return moves;
     }
 
-    //________________________________________________Horizontal chess23.Knight Movement Methods________________________________________________
+    //________________________________________________Horizontal Knight Movement Methods________________________________________________
 
-    // checks chess23.Knight moves directly to the right
+    // checks Knight moves directly to the right
 
     public static ArrayList<Coordinate> rightKnight(Pieces pieces, Piece piece) {
 
@@ -461,7 +461,7 @@ public class Move {
         return moves;
     }
 
-    // checks chess23.Knight moves directly to the left
+    // checks Knight moves directly to the left
 
     public static ArrayList<Coordinate> leftKnight(Pieces pieces, Piece piece) {
 
@@ -500,7 +500,7 @@ public class Move {
     //________________________________________________Move Input Methods________________________________________________
 
     /**
-     * Uses a scanner input to provide origin and destination coordinates for a move in a chess23.TBIBoard.
+     * Uses a scanner input to provide origin and destination coordinates for a move in a CliBoard.
      * It checks that the inputted String is in the correct format,
      * and uses a while loop to continue asking for input until a valid format is provided
      * @param sc the scanner being used to get the input

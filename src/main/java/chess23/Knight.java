@@ -17,13 +17,14 @@ public class Knight extends Piece{
     public Knight(COLOUR colour, Coordinate OGcoord) {
         super(ID.KNIGHT, colour, OGcoord);
         if (getColour() == COLOUR.B)
-            icon = new ImageIcon("BKnight.png");
+            icon = new ImageIcon("icons/BKnight.png");
         else if (getColour() == COLOUR.W)
-            icon = new ImageIcon("WKnight.png");
+            icon = new ImageIcon("icons/WKnight.png");
     }
 
     public Knight(Knight original) {
         super(original);
+        icon = getImageIcon();
     }
 
     //________________________________________________Overridden Methods________________________________________________
@@ -34,9 +35,9 @@ public class Knight extends Piece{
     }
 
     /**
-     * Produces an ArrayList containing all the raw moves available to a chess23.Knight within a given board
+     * Produces an ArrayList containing all the raw moves available to a Knight within a given board
      * @param pieces the board being played in
-     * @return an ArrayList containing all the coordinates produced from the chess23.Move class (all the chess23.Knight moves)
+     * @return an ArrayList containing all the coordinates produced from the Move class (all the Knight moves)
      */
 
     @Override
