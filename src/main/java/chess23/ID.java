@@ -1,12 +1,13 @@
 package chess23;
 
 /**
- * The ID enum class is used to identify the "type" of a
- * piece (King, Queen, Rook, Bishop, Knight, and Pawn)
- * Each has 2 toString methods
+ * The ID enum is used to identify the "type" of a
+ * piece (king, queen, rook, bishop, knight, or pawn).
  */
-
 public enum ID {
+    /**
+     * A king.
+     */
     KING {
         @Override
         public String toString() {
@@ -16,6 +17,9 @@ public enum ID {
             return "King";
         }
     },
+    /**
+     * A queen.
+     */
     QUEEN {
         @Override
         public String toString() {
@@ -25,6 +29,9 @@ public enum ID {
             return "Queen";
         }
     },
+    /**
+     * A rook.
+     */
     ROOK {
         @Override
         public String toString() {
@@ -34,6 +41,9 @@ public enum ID {
             return "Rook";
         }
     },
+    /**
+     * A bishop.
+     */
     BISHOP {
         @Override
         public String toString() {
@@ -43,6 +53,9 @@ public enum ID {
             return "Bishop";
         }
     },
+    /**
+     * A knight.
+     */
     KNIGHT {
         @Override
         public String toString() {
@@ -52,6 +65,9 @@ public enum ID {
             return "Knight";
         }
     },
+    /**
+     * A pawn.
+     */
     PAWN {
         @Override
         public String toString() {

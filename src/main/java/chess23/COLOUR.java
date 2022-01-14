@@ -1,12 +1,15 @@
 package chess23;
 
 /**
- * The COLOUR enum class is used to assign a certain colour to a given piece.
- * The 2 possibilities are B (black) or W (white)
- * There are 2 toString methods
+ * The COLOUR enum is used to assign a certain colour to a given {@link Piece}.
+ * <br>
+ * The 2 possibilities are {@link #B} (black) or {@link #W} (white).
  */
 
 public enum COLOUR {
+    /**
+     * Black
+     */
     B {
         @Override
         public String toString() {
@@ -18,6 +21,9 @@ public enum COLOUR {
             return "b";
         }
     },
+    /**
+     * White
+     */
     W {
         @Override
         public String toString() {
@@ -33,10 +39,10 @@ public enum COLOUR {
     public abstract String toSmallString();
 
     /**
-     * @param colour the colour to be considered
-     * @return the opposite colour as the one passed as an argumnet
+     * Used to obtain the opposite type of {@link COLOUR}.
+     * @param colour the colour to be considered.
+     * @return the opposite colour to {@code colour}.
      */
-
     public static COLOUR not(COLOUR colour) {
         if (colour == COLOUR.B)
             return COLOUR.W;
