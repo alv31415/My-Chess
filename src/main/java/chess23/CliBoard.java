@@ -10,7 +10,7 @@ public class CliBoard {
         boolean exit = false;
         COLOUR turn = COLOUR.W;
         Scanner sc = new Scanner(System.in);
-        StringBuilder str = new StringBuilder();
+        StringBuilder gameString = new StringBuilder();
         int numberOfTurns = 0;
 
         System.out.println(Boards.displayBoard(pieces));
@@ -18,6 +18,19 @@ public class CliBoard {
         while (!exit) {
 
             String[] move = Move.moveQuery(sc);
+
+            if (move[0].equals("exit")) {
+                System.out.println("Exiting the game. Thanks for playing!");
+                break;
+            }
+            else if (move[0].equals("save")) {
+                Path filePath = ChessIO.fileQuery(sc);
+                if (ChessIO.saveGame(gameString.toString(), filePath))
+                    System.out.println("Game saved successfully on path " + filePath);
+                else
+                    System.out.println("There was an error saving the file on the path " + filePath);
+                continue;
+            }
 
             if (!Coordinate.inBoard(new Coordinate(move[0])) || !Coordinate.inBoard(new Coordinate(move[1]))) {
                 System.out.println("At least one of the given coordinates isn't in the board. Please try again!");
@@ -35,10 +48,10 @@ public class CliBoard {
                         pieces.makeMove(destination, piece);
                         if (turn == COLOUR.W) {
                             numberOfTurns++;
-                            str.append(numberOfTurns).append(". ").append(ChessIO.moveString(pieces, destination, piece)).append(" ");
+                            gameString.append(numberOfTurns).append(". ").append(ChessIO.moveString(pieces, destination, piece)).append(" ");
                         }
                         else {
-                            str.append(ChessIO.moveString(pieces, destination, piece)).append(" ");
+                            gameString.append(ChessIO.moveString(pieces, destination, piece)).append(" ");
                         }
                         System.out.println(Boards.displayBoard(pieces));
                         if (pieces.isMate(COLOUR.not(turn))) {
@@ -54,24 +67,8 @@ public class CliBoard {
                             exit = true;
                         }
                         else{
-                            System.out.println("Enter \"exit\" to end the game, or \"save\" to save the current state of the game.");
-                            String input = sc.nextLine();
-                            switch (input) {
-                                case "exit" -> exit = true;
-                                case "save" -> {
-                                    Path filePath = ChessIO.fileQuery(sc);
-                                    if (ChessIO.saveGame(str.toString(), filePath))
-                                        System.out.println("Game saved successfully on path " + filePath);
-                                    else
-                                        System.out.println("There was an error saving the file on the path " + filePath);
-                                }
-                                default -> {
-                                }
-                            }
-                            if (!exit) {
-                                turn = COLOUR.not(turn);
-                                System.out.println(turn.toString() + " to move.");
-                            }
+                            turn = COLOUR.not(turn);
+                            System.out.println(turn.toString() + " to move.");
                         }
                     } else {
                         System.out.println("Invalid move provided.");

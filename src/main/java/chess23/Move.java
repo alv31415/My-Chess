@@ -512,11 +512,19 @@ public class Move {
         boolean validFormat = false;
 
         while (!validFormat) {
-            System.out.println("Enter a piece and its destination. For example, to move a piece in g1 to h3, write \"g1 h3\".");
+            System.out.println("Enter a piece and its destination. " +
+                    "For example, to move a piece in g1 to h3, write \"g1 h3\"." +
+                    "\nAlternatively, type 'exit' to exit the game, or 'save' to save the current state.");
             String userInput = sc.nextLine();
 
             if (userInput.length() != 5 || !userInput.contains(" ")) {
-                System.out.println("Move instructions provided in an incorrect format. Try again!");
+                if (userInput.equals("exit") || userInput.equals("save")) {
+                    move[0] = userInput;
+                    return move;
+                }
+                else {
+                    System.out.println("Move instructions provided in an incorrect format. Try again!");
+                }
             }
             else {
                 move = userInput.split(" ");

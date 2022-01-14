@@ -73,7 +73,7 @@ public class ChessIO {
 
         if (piece.getName() == ID.PAWN) {
             Pawn pawn = (Pawn) piece;
-            if (pawn.canPromoteBlack(coordinate) || pawn.canPromoteWhite(coordinate))
+            if (pawn.canPromote(coordinate))
                 str.append("=").append(pawn.getPromotedPiece().getName().toString());
         }
 
@@ -111,15 +111,15 @@ public class ChessIO {
 
     /**
      * Uses a scanner to request a file to save a game
-     * @param test_in the scanner being used to tae the input
+     * @param test_in the scanner being used to take the input
      * @return a Path, containing the name of the save file
      */
-
     public static Path fileQuery(Scanner test_in) {
 
         System.out.print("Enter file path: ");
         String filePath = test_in.nextLine();
-        return Paths.get(filePath);
+
+        return Paths.get(toTxt(filePath));
     }
 
     /**

@@ -484,16 +484,16 @@ public class Pieces {
                 if (Math.abs(coordinate.getRank() - pawn.getRank()) == 2)
                     pawn.setHasMovedTwo();
 
-                if (pawn.canPromoteBlack(coordinate) || pawn.canPromoteWhite(coordinate)) {
+                if (pawn.canPromote(coordinate)) {
                     Piece toPromote;
 
                     if (isGUIGame) {
-                        pawn.GUIPromotionQuery(coordinate);
-                        toPromote = pawn.getPromotedPiece();
+                        pawn.guiPromotionQuery(coordinate);
                     }
                     else {
-                        toPromote = pawn.promotionQuery(coordinate);
+                        pawn.cliPromotionQuery(coordinate);
                     }
+                    toPromote = pawn.getPromotedPiece();
                     Coordinate pieceCoord = findPiece(piece);
                     addPiece(coordinate, toPromote);
                     pieces.remove(pieceCoord);
