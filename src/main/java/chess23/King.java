@@ -63,10 +63,10 @@ public class King extends Piece{
         super(ID.KING, colour, ogCoord);
 
         // instantiate the icon depending on the colour of the king
-        if (getColour() == COLOUR.B)
-            icon = new ImageIcon("icons/BKing.png");
-        else if (getColour() == COLOUR.W)
-            icon = new ImageIcon("icons/WKing.png");
+        if (this.getColour() == COLOUR.B)
+            this.icon = new ImageIcon("icons/BKing.png");
+        else if (this.getColour() == COLOUR.W)
+            this.icon = new ImageIcon("icons/WKing.png");
     }
 
     /**
@@ -75,13 +75,13 @@ public class King extends Piece{
      */
     public King(King original) {
         super(original);
-        icon = getImageIcon();
-        castleCoordKingK = getCastleCoordKingK();
-        castleCoordKingQ = getCastleCoordKingQ();
-        rookKing = getRookKing();
-        rookQueen = getRookQueen();
-        transitionCoordKingK = getTransitionCoordKingK();
-        transitionCoordKingQ = getTransitionCoordKingQ();
+        this.icon = this.getImageIcon();
+        this.castleCoordKingK = this.getCastleCoordKingK();
+        this.castleCoordKingQ = this.getCastleCoordKingQ();
+        this.rookKing = this.getRookKing();
+        this.rookQueen = this.getRookQueen();
+        this.transitionCoordKingK = this.getTransitionCoordKingK();
+        this.transitionCoordKingQ = this.getTransitionCoordKingQ();
     }
 
     //________________________________________________Overridden Methods________________________________________________
@@ -128,42 +128,42 @@ public class King extends Piece{
 
         // if the king can castle, add corresponding move
         if (canCastleKing(pieces))
-            front.add(castleCoordKingK);
+            front.add(this.castleCoordKingK);
         if (canCastleQueen(pieces))
-            front.add(castleCoordKingQ);
+            front.add(this.castleCoordKingQ);
 
         return front;
     }
 
     @Override
     public ImageIcon getImageIcon() {
-        return icon;
+        return this.icon;
     }
 
     //________________________________________________Getters & Setters________________________________________________
 
     public Coordinate getCastleCoordKingK() {
-        return castleCoordKingK;
+        return this.castleCoordKingK;
     }
 
     public Coordinate getCastleCoordKingQ() {
-        return castleCoordKingQ;
+        return this.castleCoordKingQ;
     }
 
     public Coordinate getTransitionCoordKingK() {
-        return transitionCoordKingK;
+        return this.transitionCoordKingK;
     }
 
     public Coordinate getTransitionCoordKingQ() {
-        return transitionCoordKingQ;
+        return this.transitionCoordKingQ;
     }
 
     public Rook getRookKing() {
-        return rookKing;
+        return this.rookKing;
     }
 
     public Rook getRookQueen() {
-        return rookQueen;
+        return this.rookQueen;
     }
 
     //________________________________________________Castling Validation Methods________________________________________________
@@ -194,7 +194,7 @@ public class King extends Piece{
         // check if there is a rook on the kingside
         for (Piece piece : colouredPieces.values()) {
             if (piece.getName() == ID.ROOK && piece.getFile() == BOARD.LAST_FILE.getFileVal())
-                rookKing = (Rook) piece;
+                this.rookKing = (Rook) piece;
         }
 
         // the (expected) number of squares from the kingside rook to the king
@@ -204,9 +204,9 @@ public class King extends Piece{
 
         // get the coordinate to which the kingside rook would move should it castle
         if (getColour() == COLOUR.B)
-            castleCoords = Move.leftFree(pieces, this, dimension);
+            castleCoords = Move.leftFree(pieces, this, this.dimension);
         else
-            castleCoords = Move.rightFree(pieces, this, dimension);
+            castleCoords = Move.rightFree(pieces, this, this.dimension);
 
         // determine if there is space for castling
         boolean isSpace = castleCoords.size() == distanceRookKing;
@@ -216,16 +216,16 @@ public class King extends Piece{
         // and there is space between rook and king.
         // this doesn't consider the situation in which a transition square is being checked
         // by a enemy piece, but this is handled when refining the moves that the king can make later on
-        boolean canCastle = rookKing != null &&
-                !rookKing.getHasMoved() &&
+        boolean canCastle = this.rookKing != null &&
+                !this.rookKing.getHasMoved() &&
                 !getHasMoved() &&
                 isSpace;
 
         // if the king can castle, update the coordinates for the rook and king
         if (canCastle) {
-            castleCoordKingK = castleCoords.get(1);
-            transitionCoordKingK = castleCoords.get(0);
-            rookKing.setCastleCoordRook(castleCoords.get(0));
+            this.castleCoordKingK = castleCoords.get(1);
+            this.transitionCoordKingK = castleCoords.get(0);
+            this.rookKing.setCastleCoordRook(castleCoords.get(0));
             return true;
         }
 
@@ -258,7 +258,7 @@ public class King extends Piece{
         // check if there is a rook on the queenside
         for (Piece value : colouredPieces.values()) {
             if (value.getName() == ID.ROOK && value.getFile() == BOARD.FIRST_FILE.getFileVal())
-                rookQueen = (Rook) value;
+                this.rookQueen = (Rook) value;
         }
 
         // the (expected) number of squares from the queenside rook to the king
@@ -268,10 +268,10 @@ public class King extends Piece{
 
         // get the coordinate to which the queenside rook would move should it castle
         if (getColour() == COLOUR.W) {
-            castleCoords = Move.leftFree(pieces, this, dimension);
+            castleCoords = Move.leftFree(pieces, this, this.dimension);
         }
         else {
-            castleCoords = Move.rightFree(pieces, this, dimension);
+            castleCoords = Move.rightFree(pieces, this, this.dimension);
         }
 
         // determine if there is space for castling
@@ -282,16 +282,16 @@ public class King extends Piece{
         // and there is space between rook and king.
         // this doesn't consider the situation in which a transition square is being checked
         // by a enemy piece, but this is handled when refining the moves that the king can make later on
-        boolean canCastle = rookQueen != null &&
-                !rookQueen.getHasMoved() &&
+        boolean canCastle = this.rookQueen != null &&
+                !this.rookQueen.getHasMoved() &&
                 !getHasMoved() &&
                 isSpace;
 
         // if the king can castle, update the coordinates for the rook and king
         if (canCastle) {
-            castleCoordKingQ = castleCoords.get(1);
-            transitionCoordKingQ = castleCoords.get(0);
-            rookQueen.setCastleCoordRook(castleCoords.get(0));
+            this.castleCoordKingQ = castleCoords.get(1);
+            this.transitionCoordKingQ = castleCoords.get(0);
+            this.rookQueen.setCastleCoordRook(castleCoords.get(0));
             return true;
         }
         return false;

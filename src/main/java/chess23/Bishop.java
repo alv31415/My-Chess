@@ -29,9 +29,9 @@ public class Bishop extends Piece{
         super(ID.BISHOP, colour, ogCoord);
 
         // instantiate the icon depending on the colour of the bishop
-        if (getColour() == COLOUR.B)
+        if (this.getColour() == COLOUR.B)
             icon = new ImageIcon("icons/BBishop.png");
-        else if (getColour() == COLOUR.W)
+        else if (this.getColour() == COLOUR.W)
             icon = new ImageIcon("icons/WBishop.png");
     }
 
@@ -41,7 +41,7 @@ public class Bishop extends Piece{
      */
     public Bishop(Bishop original) {
         super(original);
-        icon = getImageIcon();
+        icon = this.getImageIcon();
     }
 
     //________________________________________________Overridden Methods________________________________________________

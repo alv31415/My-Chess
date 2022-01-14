@@ -30,9 +30,9 @@ public class Knight extends Piece{
 
         // instantiate the icon depending on the colour of the knight
         if (getColour() == COLOUR.B)
-            icon = new ImageIcon("icons/BKnight.png");
+            this.icon = new ImageIcon("icons/BKnight.png");
         else if (getColour() == COLOUR.W)
-            icon = new ImageIcon("icons/WKnight.png");
+            this.icon = new ImageIcon("icons/WKnight.png");
     }
 
     /**
@@ -41,7 +41,7 @@ public class Knight extends Piece{
      */
     public Knight(Knight original) {
         super(original);
-        icon = getImageIcon();
+        this.icon = this.getImageIcon();
     }
 
     //________________________________________________Overridden Methods________________________________________________

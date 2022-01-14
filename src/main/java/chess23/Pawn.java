@@ -73,12 +73,12 @@ public class Pawn extends Piece {
      */
     public Pawn(Pawn original) {
         super(original);
-        icon = this.getImageIcon();
-        hasMovedTwo = this.getHasMovedTwo();
-        enPassantLeft = this.getEnPassantLeft();
-        enPassantRight = this.getEnPassantLeft();
-        previousCoordinate = this.getPreviousCoordinate();
-        promotedPiece = this.getPromotedPiece();
+        this.icon = this.getImageIcon();
+        this.hasMovedTwo = this.getHasMovedTwo();
+        this.enPassantLeft = this.getEnPassantLeft();
+        this.enPassantRight = this.getEnPassantLeft();
+        this.previousCoordinate = this.getPreviousCoordinate();
+        this.promotedPiece = this.getPromotedPiece();
     }
 
     //________________________________________________Overridden Methods________________________________________________
@@ -133,7 +133,7 @@ public class Pawn extends Piece {
     }
 
     public Coordinate getPreviousCoordinate() {
-        return previousCoordinate;
+        return this.previousCoordinate;
     }
 
     public void setHasMovedTwo() {
@@ -141,19 +141,19 @@ public class Pawn extends Piece {
     }
 
     public boolean getHasMovedTwo() {
-        return hasMovedTwo;
+        return this.hasMovedTwo;
     }
 
     public boolean getEnPassantLeft() {
-        return enPassantLeft;
+        return this.enPassantLeft;
     }
 
     public boolean getEnPassantRight() {
-        return enPassantRight;
+        return this.enPassantRight;
     }
 
     public Piece getPromotedPiece() {
-        return promotedPiece;
+        return this.promotedPiece;
     }
 
     //________________________________________________Special Pawn Move Methods________________________________________________
