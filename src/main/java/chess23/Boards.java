@@ -2,11 +2,18 @@ package chess23;
 
 import java.util.HashMap;
 
+/**
+ * Utility class used to provide prepared chess board representations.
+ */
 public class Boards {
 
+    /**
+     * @return a {@link HashMap} of {@link Coordinate} - {@link Piece} pairs,
+     * representing the starting positions of a chess game.
+     */
     public static HashMap<Coordinate, Piece> getChessBoard() {
 
-        HashMap <Coordinate, Piece> pieces = new HashMap<>();
+        HashMap <Coordinate, Piece> chessPieces = new HashMap<>();
 
         int pawnBRank = 7;
         int bRank = 8;
@@ -83,58 +90,62 @@ public class Boards {
 
         //________________________________________________Place Black in HashMap________________________________________________
 
-        pieces.put(pawnBa.getCoords(), pawnBa);
-        pieces.put(pawnBb.getCoords(), pawnBb);
-        pieces.put(pawnBc.getCoords(), pawnBc);
-        pieces.put(pawnBd.getCoords(), pawnBd);
-        pieces.put(pawnBe.getCoords(), pawnBe);
-        pieces.put(pawnBf.getCoords(), pawnBf);
-        pieces.put(pawnBg.getCoords(), pawnBg);
-        pieces.put(pawnBh.getCoords(), pawnBh);
+        chessPieces.put(pawnBa.getCoords(), pawnBa);
+        chessPieces.put(pawnBb.getCoords(), pawnBb);
+        chessPieces.put(pawnBc.getCoords(), pawnBc);
+        chessPieces.put(pawnBd.getCoords(), pawnBd);
+        chessPieces.put(pawnBe.getCoords(), pawnBe);
+        chessPieces.put(pawnBf.getCoords(), pawnBf);
+        chessPieces.put(pawnBg.getCoords(), pawnBg);
+        chessPieces.put(pawnBh.getCoords(), pawnBh);
 
-        pieces.put(rookBa.getCoords(), rookBa);
-        pieces.put(rookBh.getCoords(), rookBh);
+        chessPieces.put(rookBa.getCoords(), rookBa);
+        chessPieces.put(rookBh.getCoords(), rookBh);
 
-        pieces.put(knightBb.getCoords(), knightBb);
-        pieces.put(knightBg.getCoords(), knightBg);
+        chessPieces.put(knightBb.getCoords(), knightBb);
+        chessPieces.put(knightBg.getCoords(), knightBg);
 
-        pieces.put(bishopBc.getCoords(), bishopBc);
-        pieces.put(bishopBf.getCoords(), bishopBf);
+        chessPieces.put(bishopBc.getCoords(), bishopBc);
+        chessPieces.put(bishopBf.getCoords(), bishopBf);
 
-        pieces.put(queenB.getCoords(), queenB);
+        chessPieces.put(queenB.getCoords(), queenB);
 
-        pieces.put(kingB.getCoords(), kingB);
+        chessPieces.put(kingB.getCoords(), kingB);
 
         //________________________________________________Place White in HashMap________________________________________________
 
-        pieces.put(pawnWa.getCoords(), pawnWa);
-        pieces.put(pawnWb.getCoords(), pawnWb);
-        pieces.put(pawnWc.getCoords(), pawnWc);
-        pieces.put(pawnWd.getCoords(), pawnWd);
-        pieces.put(pawnWe.getCoords(), pawnWe);
-        pieces.put(pawnWf.getCoords(), pawnWf);
-        pieces.put(pawnWg.getCoords(), pawnWg);
-        pieces.put(pawnWh.getCoords(), pawnWh);
+        chessPieces.put(pawnWa.getCoords(), pawnWa);
+        chessPieces.put(pawnWb.getCoords(), pawnWb);
+        chessPieces.put(pawnWc.getCoords(), pawnWc);
+        chessPieces.put(pawnWd.getCoords(), pawnWd);
+        chessPieces.put(pawnWe.getCoords(), pawnWe);
+        chessPieces.put(pawnWf.getCoords(), pawnWf);
+        chessPieces.put(pawnWg.getCoords(), pawnWg);
+        chessPieces.put(pawnWh.getCoords(), pawnWh);
 
-        pieces.put(rookWa.getCoords(), rookWa);
-        pieces.put(rookWh.getCoords(), rookWh);
+        chessPieces.put(rookWa.getCoords(), rookWa);
+        chessPieces.put(rookWh.getCoords(), rookWh);
 
-        pieces.put(knightWb.getCoords(), knightWb);
-        pieces.put(knightWg.getCoords(), knightWg);
+        chessPieces.put(knightWb.getCoords(), knightWb);
+        chessPieces.put(knightWg.getCoords(), knightWg);
 
-        pieces.put(bishopWc.getCoords(), bishopWc);
-        pieces.put(bishopWf.getCoords(), bishopWf);
+        chessPieces.put(bishopWc.getCoords(), bishopWc);
+        chessPieces.put(bishopWf.getCoords(), bishopWf);
 
-        pieces.put(queenW.getCoords(), queenW);
+        chessPieces.put(queenW.getCoords(), queenW);
 
-        pieces.put(kingW.getCoords(), kingW);
+        chessPieces.put(kingW.getCoords(), kingW);
 
-        return pieces;
+        return chessPieces;
     }
 
+    /**
+     * @return a {@link HashMap} of {@link Coordinate} - {@link Piece} pairs,
+     * representing a chess board which can be used for testing.
+     */
     public static HashMap<Coordinate, Piece> getTestBoard() {
 
-        HashMap <Coordinate, Piece> pieces = new HashMap<>();
+        HashMap <Coordinate, Piece> chessPieces = new HashMap<>();
 
         int pawnBRank = 7;
         int bRank = 8;
@@ -189,33 +200,37 @@ public class Boards {
         //________________________________________________Place Black in HashMap________________________________________________
 
 
-        pieces.put(pawnB.getCoords(), pawnB);
+        chessPieces.put(pawnB.getCoords(), pawnB);
 
-        pieces.put(rookB.getCoords(), rookB);
+        chessPieces.put(rookB.getCoords(), rookB);
 
-        pieces.put(knightB.getCoords(), knightB);
+        chessPieces.put(knightB.getCoords(), knightB);
 
-        pieces.put(queenB.getCoords(), queenB);
+        chessPieces.put(queenB.getCoords(), queenB);
 
         //________________________________________________Place White in HashMap________________________________________________
 
-        pieces.put(pawnWe.getCoords(), pawnWe);
-        pieces.put(pawnWh.getCoords(), pawnWh);
+        chessPieces.put(pawnWe.getCoords(), pawnWe);
+        chessPieces.put(pawnWh.getCoords(), pawnWh);
 
-        pieces.put(rookWa.getCoords(), rookWa);
-        pieces.put(rookWh.getCoords(), rookWh);
+        chessPieces.put(rookWa.getCoords(), rookWa);
+        chessPieces.put(rookWh.getCoords(), rookWh);
 
-        pieces.put(bishopW.getCoords(), bishopW);
+        chessPieces.put(bishopW.getCoords(), bishopW);
 
-        pieces.put(queenW.getCoords(), queenW);
+        chessPieces.put(queenW.getCoords(), queenW);
 
-        pieces.put(kingW.getCoords(), kingW);
+        chessPieces.put(kingW.getCoords(), kingW);
 
-        return pieces;
+        return chessPieces;
     }
 
+    /**
+     * @return a {@link HashMap} of {@link Coordinate} - {@link Piece} pairs,
+     * representing a chess board with a check.
+     */
     public static HashMap<Coordinate, Piece> getCheckIngBoard() {
-        HashMap <Coordinate, Piece> pieces = new HashMap<>();
+        HashMap <Coordinate, Piece> chessPieces = new HashMap<>();
 
         int pawnBRank = 7;
         int bRank = 8;
@@ -273,36 +288,40 @@ public class Boards {
         //________________________________________________Place Black in HashMap________________________________________________
 
 
-        pieces.put(pawnB.getCoords(), pawnB);
+        chessPieces.put(pawnB.getCoords(), pawnB);
 
-        pieces.put(rookB.getCoords(), rookB);
-        pieces.put(rookBh.getCoords(),rookBh);
+        chessPieces.put(rookB.getCoords(), rookB);
+        chessPieces.put(rookBh.getCoords(),rookBh);
 
-        pieces.put(knightB.getCoords(), knightB);
+        chessPieces.put(knightB.getCoords(), knightB);
 
-        pieces.put(queenB.getCoords(), queenB);
+        chessPieces.put(queenB.getCoords(), queenB);
 
-        pieces.put(kingB.getCoords(),kingB);
+        chessPieces.put(kingB.getCoords(),kingB);
 
         //________________________________________________Place White in HashMap________________________________________________
 
-        pieces.put(pawnWe.getCoords(), pawnWe);
-        pieces.put(pawnWh.getCoords(), pawnWh);
+        chessPieces.put(pawnWe.getCoords(), pawnWe);
+        chessPieces.put(pawnWh.getCoords(), pawnWh);
 
-        pieces.put(rookWa.getCoords(), rookWa);
-        pieces.put(rookWh.getCoords(), rookWh);
+        chessPieces.put(rookWa.getCoords(), rookWa);
+        chessPieces.put(rookWh.getCoords(), rookWh);
 
-        pieces.put(bishopW.getCoords(), bishopW);
+        chessPieces.put(bishopW.getCoords(), bishopW);
 
-        pieces.put(queenW.getCoords(), queenW);
+        chessPieces.put(queenW.getCoords(), queenW);
 
-        pieces.put(kingW.getCoords(), kingW);
+        chessPieces.put(kingW.getCoords(), kingW);
 
-        return pieces;
+        return chessPieces;
     }
 
+    /**
+     * @return a {@link HashMap} of {@link Coordinate} - {@link Piece} pairs,
+     * representing a chess board in which a pawn can be promoted.
+     */
     public static HashMap<Coordinate, Piece> getPromotingBoard() {
-        HashMap <Coordinate, Piece> pieces = new HashMap<>();
+        HashMap <Coordinate, Piece> chessPieces = new HashMap<>();
 
         int pawnBRank = 7;
         int bRank = 8;
@@ -361,93 +380,120 @@ public class Boards {
         //________________________________________________Place Black in HashMap________________________________________________
 
 
-        pieces.put(pawnW.getCoords(), pawnW);
-        pieces.put(pawnB.getCoords(), pawnB);
+        chessPieces.put(pawnW.getCoords(), pawnW);
+        chessPieces.put(pawnB.getCoords(), pawnB);
 
-        pieces.put(rookB.getCoords(), rookB);
-        pieces.put(rookBh.getCoords(),rookBh);
+        chessPieces.put(rookB.getCoords(), rookB);
+        chessPieces.put(rookBh.getCoords(),rookBh);
 
-        pieces.put(knightB.getCoords(), knightB);
+        chessPieces.put(knightB.getCoords(), knightB);
 
-        pieces.put(queenB.getCoords(), queenB);
+        chessPieces.put(queenB.getCoords(), queenB);
 
-        pieces.put(kingB.getCoords(),kingB);
+        chessPieces.put(kingB.getCoords(),kingB);
 
         //________________________________________________Place White in HashMap________________________________________________
 
-        pieces.put(pawnWe.getCoords(), pawnWe);
-        pieces.put(pawnWh.getCoords(), pawnWh);
+        chessPieces.put(pawnWe.getCoords(), pawnWe);
+        chessPieces.put(pawnWh.getCoords(), pawnWh);
 
-        pieces.put(rookWa.getCoords(), rookWa);
-        pieces.put(rookWh.getCoords(), rookWh);
+        chessPieces.put(rookWa.getCoords(), rookWa);
+        chessPieces.put(rookWh.getCoords(), rookWh);
 
-        pieces.put(bishopW.getCoords(), bishopW);
+        chessPieces.put(bishopW.getCoords(), bishopW);
 
-        pieces.put(queenW.getCoords(), queenW);
+        chessPieces.put(queenW.getCoords(), queenW);
 
-        pieces.put(kingW.getCoords(), kingW);
+        chessPieces.put(kingW.getCoords(), kingW);
 
-        return pieces;
+        return chessPieces;
     }
 
 
-    //////////////////// - HELPER METHODS FOR displayBoard - ////////////////////
+    //________________________________________________Methods for displaying a chess board in CLI________________________________________________
 
-    public static String fancySeparator() {
+
+    /**
+     * Creates a {@link String} representing a horizontal line of the CLI chess board..
+     * @return a {@link String} representing a horizontal line of the chess board.
+     */
+    private static String boardLine() {
 
         String unit = "|====";
 
-        String str = "  " +
+        return "  " +
                 unit.repeat(8) +
                 "|";
-        return str;
     }
 
-    public static String spacer (int n,String type) {
+    /**
+     * Generates the label for a rank of the CLI chess board.
+     * @param n the number of the rank.
+     * @param type whether the rank label is on the left ({@code L}) or right of the board.
+     * @return the {@link String} label of the rank, appropriately spaced to be used in the CLI board.
+     */
+    private static String labelRank(int n, String type) {
         if (type.equals("L"))
             return n + " ";
         else
             return " " + n;
     }
 
-    public static String fancyColumnIndex() {
+    /**
+     * Generates the labels for the files of the CLI chess board.
+     * @return the {@link String} label of the files, appropriately spaced to be used in the CLI board.
+     */
+    private static String labelFile() {
         StringBuilder str = new StringBuilder();
+
+        // we use spacing to account for the extra width of the rank labels
         str.append("   ");
-        for (char file = 'a'; file <= 'h'; file++) {
+
+        // include each character used in the file labels
+        for (char file = BOARD.FIRST_FILE.getFileVal(); file <= BOARD.LAST_FILE.getFileVal(); file++) {
             str.append(" ").append(file).append("   ");
         }
 
         return str.toString();
     }
 
-
-    ////////////////////////////////////////////////////////////////////////////
-
+    /**
+     * Given a game board, displays its CLI representation.
+     * @param pieces @param pieces the {@link Pieces} used for playing.
+     * @return a {@link String} representation of the chess board represented by {@code pieces}.
+     */
     public static String displayBoard(Pieces pieces) {
-
-        int dimRank = BOARD.FIRST_RANK.getRankVal();
-        char dimFile = BOARD.FIRST_FILE.getFileVal();
-        char lastFile = BOARD.LAST_FILE.getFileVal();
 
         StringBuilder str = new StringBuilder();
 
-        str.append(fancyColumnIndex()).append("\n");
-        str.append(fancySeparator()).append("\n");
-        for (int rank = 8; rank >= dimRank; rank--) {
-            str.append(spacer(rank,"L")).append("|");
-            for (char file = dimFile; file <= lastFile; file++) {
+        // add the top file labels
+        str.append(labelFile()).append("\n");
+
+        // add a board line
+        str.append(boardLine()).append("\n");
+
+        // iterate over each square, adding the corresponding piece to the string representation
+        for (int rank = BOARD.LAST_RANK.getRankVal(); rank >= BOARD.FIRST_RANK.getRankVal(); rank--) {
+            str.append(labelRank(rank,"L")).append("|");
+            for (char file = BOARD.FIRST_FILE.getFileVal(); file <= BOARD.LAST_FILE.getFileVal(); file++) {
                 Coordinate coord = new Coordinate(file,rank);
-                str.append((pieces.getPieces().get(coord) != null)
-                        ? (" " + pieces.getPieces().get(coord).toBoardString() + " |")
+                Piece piece = pieces.getPieces().get(coord);
+                str.append((piece != null)
+                        ? (" " + piece.toBoardString() + " |")
                         : "    |");
             }
-            str.append(spacer(rank,"R")).append("\n");
-            str.append(fancySeparator()).append("\n");
+
+            // add the rank label after a row is completed
+            str.append(labelRank(rank,"R")).append("\n");
+
+            // add a board line after a row is completed
+            str.append(boardLine()).append("\n");
         }
-        str.append(fancyColumnIndex()).append("\n");
+
+        // add the bottom file labels
+        str.append(labelFile()).append("\n");
 
         return str.toString();
-
     }
 
 
