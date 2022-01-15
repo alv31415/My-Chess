@@ -23,8 +23,15 @@ public class Coordinate {
     }
 
     public Coordinate (Coordinate original) {
-        file = original.file;
-        rank = original.rank;
+        if (original == null) {
+            this.file = (char) 0;
+            this.rank = 0;
+        }
+        else {
+            this.file = original.file;
+            this.rank = original.rank;
+        }
+
     }
 
     public Coordinate (String coordinate) {

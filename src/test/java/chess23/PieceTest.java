@@ -32,7 +32,6 @@ public class PieceTest {
         assertEquals(piece1.getColour().toString(), "Black" );
         assertEquals(piece1.getName().toString(), "K");
         assertEquals(piece1.getOgCoord().toString(), "a1");
-        assertEquals(piece1.getPieceID(), "*K*Black*a*");
     }
 
     @Test
@@ -43,7 +42,6 @@ public class PieceTest {
         assertEquals(piece1.getColour().toString(), "Black" );
         assertEquals(piece1.getName().toString(), "K");
         assertEquals(piece1.getOgCoord().toString(), "a1");
-        assertEquals(piece1.getPieceID(), "*K*Black*a*");
     }
     @Test
     public void toStringTest() {

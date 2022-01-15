@@ -251,53 +251,49 @@ public abstract class Piece{
 
             // if any of the opposition moves can target the king
             if (dangerMoves.contains(kingPosition)) {
-                // if the current piece is a king, need to remove the possibility of castling
+
+                // remove the move
+                it.remove();
+
+                // if the current piece is a king, need to remove the
+                // possibility of being checked in the process of castling
                 if (this.getName() == ID.KING) {
                     potentialKing = (King) this;
-                    // remove the move if it involved kingside castling
+                    // set a flag indicating that kingside castling would involve a check
                     if (nextMove.equals(potentialKing.getTransitionCoordKingK())) {
-                        it.remove();
                         removeKingCastle = true;
-
                     }
-                    // remove the move if it involved queenside castling
+                    // set a flag indicating that queenside castling would involve a check
                     else if (nextMove.equals(potentialKing.getTransitionCoordKingQ())) {
-                        it.remove();
                         removeQueenCastle = true;
-                    } else {
-                        it.remove();
                     }
-                }
-                // remove the move
-                else {
-                    it.remove();
                 }
             }
         }
-        if (potentialKing != null) {
-            if (removeKingCastle)
-                potentials.remove(potentialKing.getCastleCoordKingK());
-            if (removeQueenCastle)
-                potentials.remove(potentialKing.getCastleCoordKingQ());
+        // remove castling moves according to the flags
+        if (removeKingCastle) {
+            potentials.remove(potentialKing.getCastleCoordKingK());
+        }
+        if (removeQueenCastle) {
+            potentials.remove(potentialKing.getCastleCoordKingQ());
         }
 
+        // return all legal moves
         return potentials;
     }
 
     /**
-     * Updates the potential moves for a piece
+     * Updates the potential moves for a {@link Piece}.
      * @param pieces an instance of Pieces containing the information of the current playing board
      */
     public void updatePotentialMoves(Pieces pieces) {this.addMoves(removeOwnCheck(pieces));
     }
 
     /**
-     * Determines whether a coordinate represents a valid move for the current instance of a piece. It checks that
-     * the coordinate provided is within the piece's potential moves, and ascertains that the piece moving is of the colour
-     * of the current turn of play.
-     * @param destination a Coordinate representing a move destination
-     * @param colour the colour corresponding to the side that is meant to play
-     * @return true if it is the piece's current turn & the move is within it's potential moves
+     * Determines whether a {@link Coordinate} represents a valid move for the current instance of a {@link Piece}.
+     * @param destination a {@link Coordinate} representing a move destination.
+     * @param colour the {@link COLOUR} corresponding to the side that is meant to play.
+     * @return {@code true} if it is the {@link Piece} current turn & the move is within its potential moves.
      */
     public boolean isValidMove(Coordinate destination, COLOUR colour) {
         return getPotentialMoves().contains(destination) && getColour() == colour;

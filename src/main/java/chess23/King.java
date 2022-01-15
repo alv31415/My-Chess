@@ -71,8 +71,14 @@ public class King extends Piece{
         this.icon = original.getImageIcon();
         this.castleCoordKingK = new Coordinate(original.getCastleCoordKingK());
         this.castleCoordKingQ = new Coordinate(original.getCastleCoordKingQ());
-        this.rookKing = new Rook(original.getRookKing());
-        this.rookQueen = new Rook(original.getRookQueen());
+
+        if (original.getRookKing() != null) {
+            this.rookKing = new Rook(original.getRookKing());
+        }
+        if (original.getRookQueen() != null) {
+            this.rookQueen = new Rook(original.getRookQueen());
+        }
+
         this.transitionCoordKingK = new Coordinate(original.getTransitionCoordKingK());
         this.transitionCoordKingQ = new Coordinate(original.getTransitionCoordKingQ());
     }

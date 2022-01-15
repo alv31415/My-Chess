@@ -70,7 +70,11 @@ public class Pawn extends Piece {
         this.enPassantLeft = original.getEnPassantLeft();
         this.enPassantRight = original.getEnPassantLeft();
         this.previousCoordinate = new Coordinate(original.getPreviousCoordinate());
-        this.promotedPiece = original.getPromotedPiece().makeCopy();
+
+        if (original.getPromotedPiece() != null) {
+            this.promotedPiece = original.getPromotedPiece();
+        }
+
     }
 
     //________________________________________________Overridden Methods________________________________________________

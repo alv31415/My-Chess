@@ -16,11 +16,6 @@ public class PiecesTest {
         Coordinate blackQueenKnight = new Coordinate('B',8);
         Coordinate whiteKingRook = new Coordinate('H',1);
         Coordinate blackPawnMiddle = new Coordinate('E',7);
-
-        assertEquals(board.get(whiteQueen).getPieceID(), "*Q*White*d*");
-        assertEquals(board.get(blackQueenKnight).getPieceID(), "*N*Black*b*");
-        assertEquals(board.get(whiteKingRook).getPieceID(), "*R*White*h*");
-        assertEquals(board.get(blackPawnMiddle).getPieceID(), "**Black*e*");
     }
 
     @Test
