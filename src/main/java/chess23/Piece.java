@@ -3,20 +3,9 @@ package chess23;
 import javax.swing.*;
 import java.util.*;
 
-/*
-1) Class Constructors
-2) Getters & Setters
-3) Piece Movement Methods
-4) toString() Methods
-5) Overridden Methods
-6) Abstract Methods
-*/
-
 /**
- * The Piece class is used to represent a generic chess piece. It acts as a super class for the 6 distinct pieces from chess.
- * The Piece class is also used to determine all the moves that a given piece can make within a given board.
+ * Superclass representing a generic chess piece.
  */
-
 public abstract class Piece{
 
     /**
@@ -31,175 +20,79 @@ public abstract class Piece{
      * hasMoved determines whether a piece has moved at least once within a given board
      * emptyPiece is a default piece, used as a filler
      */
+
+    /**
+     * An {@link ID}, representing the type of the {@link Piece}.
+     */
     private final ID name;
+
+    /**
+     * A {@link COLOUR}, representing the colour of the {@link Piece}.
+     */
     private final COLOUR colour;
+
+    /**
+     * The {@link Coordinate} currently occupied by the instance.
+     */
     private Coordinate coords;
+
+    /**
+     * The initial {@link Coordinate} on which the {@link Piece} starts.
+     */
     private final Coordinate ogCoord;
-    private final String pieceID; //potentially remove
+
+    /**
+     * A {@link HashSet} containing all the {@link Coordinate} squares to which the instance can move to.
+     * Updated at each iteration of the game.
+     */
     private HashSet<Coordinate> potentialMoves = new HashSet<>();
-    public int dimension = BOARD.LAST_RANK.getRankVal();
-    public int single = BOARD.FIRST_RANK.getRankVal();
+
+    /**
+     * Flag used to determine if the instance has moved.
+     */
     private boolean hasMoved = false;
-    public static Piece emptyPiece = new Rook(COLOUR.W,Coordinate.emptyCoordinate);
+
+    /**
+     * A "dummy" {@link Piece} to be used as a placeholder.
+     */
+    public static Piece emptyPiece = new Rook(COLOUR.W, Coordinate.emptyCoordinate);
 
     //________________________________________________Class Constructors________________________________________________
 
-    public Piece (ID name, COLOUR colour, Coordinate OGcoord) {
+    /**
+     * Class constructor for a {@link Piece}.
+     * @param colour a {@link COLOUR}, representing the colour of the {@link Piece}.
+     * @param ogCoord a {@link Coordinate}, representing the starting square of the {@link Piece}.
+     */
+    public Piece (ID name, COLOUR colour, Coordinate ogCoord) {
 
         Objects.requireNonNull(name, "The piece must be correctly identified with an ID.");
         Objects.requireNonNull(colour, "The piece must be either white or black.");
-        Objects.requireNonNull(OGcoord, "The piece must have an origin coordinate to be correctly initiallised.");
+        Objects.requireNonNull(ogCoord, "The piece must have an origin coordinate to be correctly initiallised.");
 
         this.name = name;
         this.colour = colour;
-        this.ogCoord = OGcoord;
-        coords = OGcoord;
-        pieceID = "*" + name +"*" + colour + "*" + OGcoord.getFile() +"*";
+        this.ogCoord = ogCoord;
+        this.coords = ogCoord;
     }
 
+    /**
+     * Copy constructor for a {@link Piece}.
+     * @param original the {@link Piece} we are copying.
+     */
     public Piece (Piece original) {
         Objects.requireNonNull(original,"You can't copy a null piece");
         this.name = original.name;
         this.colour = original.colour;
         this.ogCoord = new Coordinate(original.ogCoord);
         this.coords = new Coordinate(original.coords);
-        this.pieceID = original.pieceID;
         this.potentialMoves = new HashSet<>();
 
         for (Coordinate coord : original.getPotentialMoves()) {
             this.potentialMoves.add(new Coordinate(coord));
         }
 
-        this.dimension = original.dimension;
-        this.single = original.single;
         this.hasMoved = original.hasMoved;
-    }
-
-    //________________________________________________Getters & Setters________________________________________________
-
-    public Coordinate getCoords() {
-        return coords;
-    }
-
-    public char getFile() {
-        return getCoords().getFile();
-    }
-
-    public int getRank() {
-        return getCoords().getRank();
-    }
-
-    public COLOUR getColour() {
-        return colour;
-    }
-
-    public ID getName() {
-        return name;
-    }
-
-    public Coordinate getOgCoord() {
-        return ogCoord;
-    }
-
-    public String getPieceID() {
-        return pieceID;
-    }
-
-    public void setCoords(Coordinate coords) {
-        this.coords = coords;
-    }
-
-    public boolean getHasMoved() {return hasMoved;}
-
-    public void setHasMoved() {hasMoved = true;}
-
-    public void addMoves(ArrayList<Coordinate> someMoves) {
-        potentialMoves.addAll(someMoves);
-    }
-
-    public void clearMoves() {
-        potentialMoves.clear();
-    }
-
-    public HashSet<Coordinate> getPotentialMoves() {
-        return potentialMoves;
-    }
-
-    //________________________________________________Piece Movement Methods________________________________________________
-
-    /**
-     * Given a set of raw moves available to a piece, it removes those moves (coordinates) that would lead to check,
-     * and so, would be illegal moves.
-     * It uses an iterator to iterate through all raw moves of a piece. Then, it creates a temporary board (copying the current one),
-     * and moves the piece to the raw move provided. If this causes check, then it removes the coordinate from the raw moves.
-     * The resulting ArrayList will be used to update the potential moves of the piece.
-     * @param pieces an instance of Pieces containing the information of the current playing board
-     * @return an ArrayList of coordinates containing all legal moves that can be made by a Piece in a given board
-     */
-
-    public ArrayList<Coordinate> removeOwnCheck(Pieces pieces) {
-
-        King potentialKing = null;
-        boolean removeKingCastle = false;
-        boolean removeQueenCastle = false;
-
-        ArrayList<Coordinate> potentials = getRawMoves(pieces);
-
-        if (potentials.size() == 0)
-            return potentials;
-
-        Iterator<Coordinate> it = potentials.iterator();
-
-        while (it.hasNext()) {
-            Coordinate nextMove = it.next();
-            Pieces p = new Pieces(pieces);
-            p.pieceMove(nextMove, this.makeCopy());
-            Coordinate kingPosition = p.findKing(getColour());
-            HashSet<Coordinate> dangerMoves = p.allColouredRaws(COLOUR.not(getColour()));
-            if (dangerMoves.contains(kingPosition))
-                if (this.getName() == ID.KING) { // we need to remove the possibility of castling if the King can be put in check
-                    potentialKing = (King) this;
-                    if (nextMove.equals(potentialKing.getTransitionCoordKingK())) {
-                        it.remove();
-                        removeKingCastle = true;
-                    }
-                    else if (nextMove.equals(potentialKing.getTransitionCoordKingQ())) {
-                        it.remove();
-                        removeQueenCastle = true;
-                    }
-                    else
-                        it.remove();
-                }
-                else
-                    it.remove();
-        }
-        if (potentialKing != null) {
-            if (removeKingCastle)
-                potentials.remove(potentialKing.getCastleCoordKingK());
-            if (removeQueenCastle)
-                potentials.remove(potentialKing.getCastleCoordKingQ());
-        }
-
-        return potentials;
-    }
-
-    /**
-     * Updates the potential moves for a piece
-     * @param pieces an instance of Pieces containing the information of the current playing board
-     */
-    public void updatePotentialMoves(Pieces pieces) {addMoves(removeOwnCheck(pieces));
-    }
-
-    /**
-     * Determines whether a coordinate represents a valid move for the current instance of a piece. It checks that
-     * the coordinate provided is within the piece's potential moves, and ascertains that the piece moving is of the colour
-     * of the current turn of play.
-     * @param destination a Coordinate representing a move destination
-     * @param colour the colour corresponding to the side that is meant to play
-     * @return true if it is the piece's current turn & the move is within it's potential moves
-     */
-    public boolean isValidMove(Coordinate destination, COLOUR colour) {
-        return getPotentialMoves().contains(destination) && getColour() == colour;
     }
 
     //________________________________________________toString() Methods________________________________________________
@@ -229,13 +122,12 @@ public abstract class Piece{
         Piece piece = (Piece) o;
         return name == piece.name &&
                 colour == piece.colour &&
-                ogCoord.equals(piece.ogCoord) &&
-                pieceID.equals(piece.pieceID);
+                ogCoord.equals(piece.ogCoord);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, colour, ogCoord, pieceID);
+        return Objects.hash(name, colour, ogCoord);
     }
 
 
@@ -243,26 +135,171 @@ public abstract class Piece{
 
 
     /**
-     * Provides all the raw moves (all moves, without considering potential cehcks) possible for a given piece within a certain board
-     * The raw moves are calculated individually within a given piece
-     * @param pieces the board being played in
-     * @return an ArrayList containing all the raw move coordinates
+     * Provides all the raw moves (all possible moves that a piece can make without considering potential checks)
+     * for a given {@link Piece} within a certain board.
+     * The raw moves are calculated individually within a given {@link Piece}.
+     * @param pieces the {@link Pieces} used for playing.
+     * @return an {@link ArrayList}, containing all the {@link Coordinate} squares reachable by the {@link Piece}.
      */
-
     public abstract ArrayList<Coordinate> getRawMoves(Pieces pieces);
 
     /**
-     * @return the ImageIcon associated with a certain piece. This is assigned when the Piece is instantiated.
-     * Used to assign the icons for the GUIBoard
+     * @return the {@link ImageIcon} associated with a certain {@link Piece}.
+     * Used to assign the icons for the {@link GuiBoard}.
      */
-
     public abstract ImageIcon getImageIcon();
 
     /**
-     * Creates an exact copy of the instance of the piece
-     * This is used to create copies of HashMaps, and for calculating potential moves
-     * @return a copy of the piece instance
+     * Produces a deep copy of the {@link Piece} subclass instance.
+     * @return a {@link Piece} produced as a deep copy of the subclass instance.
      */
-
     public abstract Piece makeCopy();
+
+    //________________________________________________Getters & Setters________________________________________________
+
+    public Coordinate getCoords() {
+        return this.coords;
+    }
+
+    public char getFile() {
+        return getCoords().getFile();
+    }
+
+    public int getRank() {
+        return getCoords().getRank();
+    }
+
+    public COLOUR getColour() {
+        return this.colour;
+    }
+
+    public ID getName() {
+        return this.name;
+    }
+
+    public Coordinate getOgCoord() {
+        return this.ogCoord;
+    }
+
+    public void setCoords(Coordinate coords) {
+        this.coords = coords;
+    }
+
+    public boolean getHasMoved() {return this.hasMoved;}
+
+    public void setHasMoved() {hasMoved = true;}
+
+    public HashSet<Coordinate> getPotentialMoves() {
+        return this.potentialMoves;
+    }
+
+    //________________________________________________Piece Movement Methods________________________________________________
+
+    /**
+     * Updates the {@link #potentialMoves} of the {@link Piece}.
+     * @param someMoves an {@link ArrayList} of {@link Coordinate} to update the {@link #potentialMoves}.
+     */
+    public void addMoves(ArrayList<Coordinate> someMoves) {
+        potentialMoves.addAll(someMoves);
+    }
+
+    /**
+     * Removes all moves in {@link #potentialMoves}.
+     */
+    public void clearMoves() {
+        potentialMoves.clear();
+    }
+
+    /**
+     * Given a set of raw moves available to a {@link Piece}, it removes those moves ({@link Coordinate})
+     * that would lead to check.
+     * @param pieces the {@link Pieces} used for playing.
+     * @return an {@link ArrayList} of {@link Coordinate} containing all the legal moves
+     * that can be made by a {@link Piece} in {@code pieces}.
+     */
+    public ArrayList<Coordinate> removeOwnCheck(Pieces pieces) {
+
+        King potentialKing = null;
+        boolean removeKingCastle = false;
+        boolean removeQueenCastle = false;
+
+        // get the raw moves available to the piece
+        ArrayList<Coordinate> potentials = this.getRawMoves(pieces);
+
+        // if no moves are possible, then no potential checks to remove
+        if (potentials.size() == 0)
+            return potentials;
+
+        // use an iterator to remove moves
+        Iterator<Coordinate> it = potentials.iterator();
+
+        // iterate until every move has been checked
+        while (it.hasNext()) {
+            Coordinate nextMove = it.next();
+
+            // perform a copy of the game board
+            Pieces p = new Pieces(pieces);
+
+            // move the current piece in the simulated board
+            p.pieceMove(nextMove, this.makeCopy());
+
+            // get the coordinate of the king with the same colour as the piece
+            Coordinate kingPosition = p.findKing(this.getColour());
+
+            // get all moves that can be performed by the opposition
+            HashSet<Coordinate> dangerMoves = p.allColouredRaws(COLOUR.not(getColour()));
+
+            // if any of the opposition moves can target the king
+            if (dangerMoves.contains(kingPosition)) {
+                // if the current piece is a king, need to remove the possibility of castling
+                if (this.getName() == ID.KING) {
+                    potentialKing = (King) this;
+                    // remove the move if it involved kingside castling
+                    if (nextMove.equals(potentialKing.getTransitionCoordKingK())) {
+                        it.remove();
+                        removeKingCastle = true;
+
+                    }
+                    // remove the move if it involved queenside castling
+                    else if (nextMove.equals(potentialKing.getTransitionCoordKingQ())) {
+                        it.remove();
+                        removeQueenCastle = true;
+                    } else {
+                        it.remove();
+                    }
+                }
+                // remove the move
+                else {
+                    it.remove();
+                }
+            }
+        }
+        if (potentialKing != null) {
+            if (removeKingCastle)
+                potentials.remove(potentialKing.getCastleCoordKingK());
+            if (removeQueenCastle)
+                potentials.remove(potentialKing.getCastleCoordKingQ());
+        }
+
+        return potentials;
+    }
+
+    /**
+     * Updates the potential moves for a piece
+     * @param pieces an instance of Pieces containing the information of the current playing board
+     */
+    public void updatePotentialMoves(Pieces pieces) {this.addMoves(removeOwnCheck(pieces));
+    }
+
+    /**
+     * Determines whether a coordinate represents a valid move for the current instance of a piece. It checks that
+     * the coordinate provided is within the piece's potential moves, and ascertains that the piece moving is of the colour
+     * of the current turn of play.
+     * @param destination a Coordinate representing a move destination
+     * @param colour the colour corresponding to the side that is meant to play
+     * @return true if it is the piece's current turn & the move is within it's potential moves
+     */
+    public boolean isValidMove(Coordinate destination, COLOUR colour) {
+        return getPotentialMoves().contains(destination) && getColour() == colour;
+    }
 }

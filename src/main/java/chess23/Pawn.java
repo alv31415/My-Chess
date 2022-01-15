@@ -6,14 +6,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
-/*
-1) Class Constructors
-2) Overridden Methods
-3) Getters & Setters
-4) Special Pawn Move Methods
-5) Pawn Promotion Methods
-*/
-
 /**
  * Class representing a pawn in chess.
  */
@@ -73,12 +65,12 @@ public class Pawn extends Piece {
      */
     public Pawn(Pawn original) {
         super(original);
-        this.icon = this.getImageIcon();
-        this.hasMovedTwo = this.getHasMovedTwo();
-        this.enPassantLeft = this.getEnPassantLeft();
-        this.enPassantRight = this.getEnPassantLeft();
-        this.previousCoordinate = this.getPreviousCoordinate();
-        this.promotedPiece = this.getPromotedPiece();
+        this.icon = original.getImageIcon();
+        this.hasMovedTwo = original.getHasMovedTwo();
+        this.enPassantLeft = original.getEnPassantLeft();
+        this.enPassantRight = original.getEnPassantLeft();
+        this.previousCoordinate = new Coordinate(original.getPreviousCoordinate());
+        this.promotedPiece = original.getPromotedPiece().makeCopy();
     }
 
     //________________________________________________Overridden Methods________________________________________________

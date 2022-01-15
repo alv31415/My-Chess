@@ -3,11 +3,6 @@ package chess23;
 import javax.swing.*;
 import java.util.ArrayList;
 
-/*
-1) Class Constructors
-2) Overridden Methods
-*/
-
 /**
  * Class representing a bishop in chess.
  */
@@ -41,7 +36,7 @@ public class Queen extends Piece{
      */
     public Queen(Queen original) {
         super(original);
-        this.icon = this.getImageIcon();
+        this.icon = original.getImageIcon();
     }
 
     //________________________________________________Overridden Methods________________________________________________
@@ -66,14 +61,14 @@ public class Queen extends Piece{
     public ArrayList<Coordinate> getRawMoves(Pieces pieces) {
 
         // consider vertical, horizontal and diagonal moves
-        ArrayList<Coordinate> front = Move.frontFree(pieces,this,dimension);
-        ArrayList<Coordinate> right = Move.rightFree(pieces,this,dimension);
-        ArrayList<Coordinate> back = Move.backFree(pieces,this,dimension);
-        ArrayList<Coordinate> left = Move.leftFree(pieces,this,dimension);
-        ArrayList<Coordinate> frontRDig = Move.frontRDigFree(pieces, this,dimension);
-        ArrayList<Coordinate> backRDig = Move.backRDigFree(pieces, this, dimension);
-        ArrayList<Coordinate> backLDig = Move.backLDigFree(pieces, this,dimension);
-        ArrayList<Coordinate> frontLDig = Move.frontLDigFree(pieces, this, dimension);
+        ArrayList<Coordinate> front = Move.frontFree(pieces,this, BOARD.LAST_RANK.getRankVal());
+        ArrayList<Coordinate> right = Move.rightFree(pieces,this, BOARD.LAST_RANK.getRankVal());
+        ArrayList<Coordinate> back = Move.backFree(pieces,this, BOARD.LAST_RANK.getRankVal());
+        ArrayList<Coordinate> left = Move.leftFree(pieces,this, BOARD.LAST_RANK.getRankVal());
+        ArrayList<Coordinate> frontRDig = Move.frontRDigFree(pieces, this, BOARD.LAST_RANK.getRankVal());
+        ArrayList<Coordinate> backRDig = Move.backRDigFree(pieces, this,  BOARD.LAST_RANK.getRankVal());
+        ArrayList<Coordinate> backLDig = Move.backLDigFree(pieces, this, BOARD.LAST_RANK.getRankVal());
+        ArrayList<Coordinate> frontLDig = Move.frontLDigFree(pieces, this,  BOARD.LAST_RANK.getRankVal());
 
         // join vertical and horizontal moves
         front.addAll(right);

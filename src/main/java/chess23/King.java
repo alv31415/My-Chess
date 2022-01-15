@@ -3,13 +3,6 @@ package chess23;
 import javax.swing.*;
 import java.util.*;
 
-/*
-1) Class Constructors
-2) Getters & Setters
-3) Castling Validation Methods
-4) Overridden Methods
-*/
-
 /**
  * Class representing a king in chess.
  */
@@ -75,13 +68,13 @@ public class King extends Piece{
      */
     public King(King original) {
         super(original);
-        this.icon = this.getImageIcon();
-        this.castleCoordKingK = this.getCastleCoordKingK();
-        this.castleCoordKingQ = this.getCastleCoordKingQ();
-        this.rookKing = this.getRookKing();
-        this.rookQueen = this.getRookQueen();
-        this.transitionCoordKingK = this.getTransitionCoordKingK();
-        this.transitionCoordKingQ = this.getTransitionCoordKingQ();
+        this.icon = original.getImageIcon();
+        this.castleCoordKingK = new Coordinate(original.getCastleCoordKingK());
+        this.castleCoordKingQ = new Coordinate(original.getCastleCoordKingQ());
+        this.rookKing = new Rook(original.getRookKing());
+        this.rookQueen = new Rook(original.getRookQueen());
+        this.transitionCoordKingK = new Coordinate(original.getTransitionCoordKingK());
+        this.transitionCoordKingQ = new Coordinate(original.getTransitionCoordKingQ());
     }
 
     //________________________________________________Overridden Methods________________________________________________
@@ -106,14 +99,14 @@ public class King extends Piece{
     public ArrayList<Coordinate> getRawMoves(Pieces pieces) {
 
         // consider vertical, horizontal and diagonal moves of a single step
-        ArrayList<Coordinate> front = Move.frontFree(pieces,this, single);
-        ArrayList<Coordinate> right = Move.rightFree(pieces,this, single);
-        ArrayList<Coordinate> back = Move.backFree(pieces,this, single);
-        ArrayList<Coordinate> left = Move.leftFree(pieces,this, single);
-        ArrayList<Coordinate> frontRDig = Move.frontRDigFree(pieces, this, single);
-        ArrayList<Coordinate> backRDig = Move.backRDigFree(pieces, this, single);
-        ArrayList<Coordinate> backLDig = Move.backLDigFree(pieces, this, single);
-        ArrayList<Coordinate> frontLDig = Move.frontLDigFree(pieces, this, single);
+        ArrayList<Coordinate> front = Move.frontFree(pieces,this, BOARD.FIRST_RANK.getRankVal());
+        ArrayList<Coordinate> right = Move.rightFree(pieces,this, BOARD.FIRST_RANK.getRankVal());
+        ArrayList<Coordinate> back = Move.backFree(pieces,this, BOARD.FIRST_RANK.getRankVal());
+        ArrayList<Coordinate> left = Move.leftFree(pieces,this, BOARD.FIRST_RANK.getRankVal());
+        ArrayList<Coordinate> frontRDig = Move.frontRDigFree(pieces, this, BOARD.FIRST_RANK.getRankVal());
+        ArrayList<Coordinate> backRDig = Move.backRDigFree(pieces, this, BOARD.FIRST_RANK.getRankVal());
+        ArrayList<Coordinate> backLDig = Move.backLDigFree(pieces, this, BOARD.FIRST_RANK.getRankVal());
+        ArrayList<Coordinate> frontLDig = Move.frontLDigFree(pieces, this, BOARD.FIRST_RANK.getRankVal());
 
         // join all possible moves
         front.addAll(right);
@@ -204,9 +197,9 @@ public class King extends Piece{
 
         // get the coordinate to which the kingside rook would move should it castle
         if (getColour() == COLOUR.B)
-            castleCoords = Move.leftFree(pieces, this, this.dimension);
+            castleCoords = Move.leftFree(pieces, this, BOARD.LAST_RANK.getRankVal());
         else
-            castleCoords = Move.rightFree(pieces, this, this.dimension);
+            castleCoords = Move.rightFree(pieces, this, BOARD.LAST_RANK.getRankVal());
 
         // determine if there is space for castling
         boolean isSpace = castleCoords.size() == distanceRookKing;
@@ -268,10 +261,10 @@ public class King extends Piece{
 
         // get the coordinate to which the queenside rook would move should it castle
         if (getColour() == COLOUR.W) {
-            castleCoords = Move.leftFree(pieces, this, this.dimension);
+            castleCoords = Move.leftFree(pieces, this, BOARD.LAST_RANK.getRankVal());
         }
         else {
-            castleCoords = Move.rightFree(pieces, this, this.dimension);
+            castleCoords = Move.rightFree(pieces, this, BOARD.LAST_RANK.getRankVal());
         }
 
         // determine if there is space for castling

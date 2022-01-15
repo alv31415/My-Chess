@@ -2,13 +2,6 @@ package chess23;
 
 import java.util.Objects;
 
-/*
-1) Class Constructors
-2) Getters
-3) Validating Method
-4) Overridden Methods
-*/
-
 /**
  * The Coordinate class is used to determine the position of the pieces within the board.
  * A chess coordinate is determined by its file (column), represented as a lowercase character from a to h;

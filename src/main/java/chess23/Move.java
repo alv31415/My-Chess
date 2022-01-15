@@ -4,18 +4,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
-/*
-1) Null Messages
-2) Support Methods
-3) Vertical Movement Methods
-4) Horizontal Movement Methods
-5) Diagonal Right Movement Methods
-6) Diagonal Left Movement Methods
-7) Vertical Knight Movement Methods
-8) Horizontal Knight Movement Methods
-9) Move Input Methods
-*/
-
 /**
  * The Move class contains all methods that are used to find all raw moves for a given piece.
  * The move calculating methods all have a Pieces, Piece and int argument.

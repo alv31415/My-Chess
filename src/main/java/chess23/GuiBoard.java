@@ -15,17 +15,6 @@ import java.util.HashSet;
 // https://www.youtube.com/watch?v=SNYFjgz4bU4
 // png files from https://marcelk.net/chess/pieces/
 
-/*
-1) Class Constructor
-2) Board Labelling Methods
-3) Board Formatting Methods
-4) Information Panel Method
-5) Piece Movement Methods
-6) Game Saving Class
-7) Piece Movement Methods
-8) Overridden Methods
-*/
-
 /**
  * The GUIBoard class contains all the methods and classes used to display the game of chess
  */

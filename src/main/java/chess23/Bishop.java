@@ -3,11 +3,6 @@ package chess23;
 import javax.swing.*;
 import java.util.ArrayList;
 
-/*
-1) Class Constructors
-2) Overridden Methods
-*/
-
 /**
  * Class representing a bishop in chess.
  */
@@ -41,7 +36,7 @@ public class Bishop extends Piece{
      */
     public Bishop(Bishop original) {
         super(original);
-        icon = this.getImageIcon();
+        this.icon = original.getImageIcon();
     }
 
     //________________________________________________Overridden Methods________________________________________________
@@ -66,10 +61,10 @@ public class Bishop extends Piece{
     public ArrayList<Coordinate> getRawMoves(Pieces pieces) {
 
         // only consider diagonal moves
-        ArrayList<Coordinate> frontRDig = Move.frontRDigFree(pieces, this, dimension);
-        ArrayList<Coordinate> backRDig = Move.backRDigFree(pieces, this, dimension);
-        ArrayList<Coordinate> backLDig = Move.backLDigFree(pieces, this, dimension);
-        ArrayList<Coordinate> frontLDig = Move.frontLDigFree(pieces, this, dimension);
+        ArrayList<Coordinate> frontRDig = Move.frontRDigFree(pieces, this, BOARD.LAST_RANK.getRankVal());
+        ArrayList<Coordinate> backRDig = Move.backRDigFree(pieces, this, BOARD.LAST_RANK.getRankVal());
+        ArrayList<Coordinate> backLDig = Move.backLDigFree(pieces, this, BOARD.LAST_RANK.getRankVal());
+        ArrayList<Coordinate> frontLDig = Move.frontLDigFree(pieces, this, BOARD.LAST_RANK.getRankVal());
 
         // join all possible moves
         frontRDig.addAll(backRDig);

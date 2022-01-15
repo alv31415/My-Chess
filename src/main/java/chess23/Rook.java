@@ -3,12 +3,6 @@ package chess23;
 import javax.swing.*;
 import java.util.ArrayList;
 
-/*
-1) Class Constructors
-2) Getters & Setters
-3) Overridden Methods
-*/
-
 /**
  * Class representing a rook in chess.
  */
@@ -48,7 +42,7 @@ public class Rook extends Piece{
     public Rook (Rook original) {
         super(original);
         this.icon = this.getImageIcon();
-        this.castleCoordRook = this.getCastleCoordRook();
+        this.castleCoordRook = new Coordinate(this.getCastleCoordRook());
     }
 
     //________________________________________________Overridden Methods________________________________________________
@@ -73,10 +67,10 @@ public class Rook extends Piece{
     public ArrayList<Coordinate> getRawMoves(Pieces pieces) {
 
         // only consider vertical and horizontal moves
-        ArrayList<Coordinate> front = Move.frontFree(pieces,this,dimension);
-        ArrayList<Coordinate> right = Move.rightFree(pieces,this,dimension);
-        ArrayList<Coordinate> back = Move.backFree(pieces,this,dimension);
-        ArrayList<Coordinate> left = Move.leftFree(pieces,this,dimension);
+        ArrayList<Coordinate> front = Move.frontFree(pieces,this, BOARD.LAST_RANK.getRankVal());
+        ArrayList<Coordinate> right = Move.rightFree(pieces,this, BOARD.LAST_RANK.getRankVal());
+        ArrayList<Coordinate> back = Move.backFree(pieces,this, BOARD.LAST_RANK.getRankVal());
+        ArrayList<Coordinate> left = Move.leftFree(pieces,this, BOARD.LAST_RANK.getRankVal());
 
         // join all moves
         front.addAll(right);

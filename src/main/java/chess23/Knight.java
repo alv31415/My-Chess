@@ -3,11 +3,6 @@ package chess23;
 import javax.swing.*;
 import java.util.ArrayList;
 
-/*
-1) Class Constructors
-2) Overridden Methods
-*/
-
 /**
  * Class representing a knight in chess.
  */
@@ -41,7 +36,7 @@ public class Knight extends Piece{
      */
     public Knight(Knight original) {
         super(original);
-        this.icon = this.getImageIcon();
+        this.icon = original.getImageIcon();
     }
 
     //________________________________________________Overridden Methods________________________________________________

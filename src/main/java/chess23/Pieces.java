@@ -2,17 +2,6 @@ package chess23;
 
 import java.util.*;
 
-/*
-1) Class Constructors
-2) Collection Copying
-3) Getters & Setters
-4) Piece Related Methods
-5) Board Distribution Related Methods
-6) Game Logic Methods
-7) Piece Movement Methods
-8) Overridden Methods
-*/
-
 /**
  * The Pieces class is used to represent the board that is being played with.
  * It contains the position of all pieces, alongside all the methods that handle game logic,
@@ -418,7 +407,6 @@ public class Pieces {
      * @param colour the colour of the turn in which a potential stalemating move has been made
      * @return true if there isn't check in the board, but the pieces of the opposite colour have no potential moves
      */
-
     public boolean isStalemate(COLOUR colour) {
         HashSet<Coordinate> allMoves = allColouredPotentials(COLOUR.not(colour));
         return allMoves.size() == 0 && !isCheck(COLOUR.not(colour));
@@ -544,7 +532,7 @@ public class Pieces {
     public String toString() {
         StringBuilder str = new StringBuilder();
 
-        pieces.forEach((coord, piece) -> str.append(piece.getPieceID())
+        pieces.forEach((coord, piece) -> str.append(piece)
                                 .append(" is at ")
                                 .append(coord.toString())
                                 .append("\n"));
