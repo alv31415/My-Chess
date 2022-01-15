@@ -9,19 +9,6 @@ import java.util.*;
 public abstract class Piece{
 
     /**
-     * name is the ID of the piece. Determines whether it is a pawn, knight, bishop, rook, queen or king.
-     * colour is the COLOUR of the piece. Determines whether it is black or white.
-     * coords is the current coordinate that a piece is occupying within the board
-     * OGcoord is the initial coordinate that a piece occupies when a board is created
-     * pieceID is a unique String associated with each piece, created when a Piece is constructed
-     * potentialMoves refers to all the possible coordinates that a piece can go to, given a certain board
-     * dimension is the "size" of a board, which is 8 by default
-     * single is the first rank, which is 1 by default
-     * hasMoved determines whether a piece has moved at least once within a given board
-     * emptyPiece is a default piece, used as a filler
-     */
-
-    /**
      * An {@link ID}, representing the type of the {@link Piece}.
      */
     private final ID name;

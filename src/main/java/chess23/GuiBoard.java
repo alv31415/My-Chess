@@ -569,7 +569,7 @@ public class GuiBoard extends JFrame {
 
             if (fileSave != null) {
 
-                String filePath = ChessIO.toTxt(fileSave);
+                String filePath = ChessIO.toSaveableFormat(fileSave);
 
                 if (ChessIO.isErrorSave(filePath)) {
                     JOptionPane.showMessageDialog(null,
